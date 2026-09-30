@@ -1,0 +1,547 @@
+[
+  {
+    "id": "doc-cai-card-01",
+    "nameEn": "Dr. Karim Fawzy",
+    "nameAr": "د. كريم فوزي",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-cai-01",
+    "yearsExperience": 18,
+    "languages": [
+      "ar",
+      "en",
+      "fr"
+    ],
+    "consultationFeeUsd": 60,
+    "rating": 4.8,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Interventional cardiologist who has performed more than 1,500 coronary angioplasty and heart stent (PCI) procedures. Leads the chest-pain assessment unit and reviews angiograms for second opinions.",
+    "bioAr": "استشاري قسطرة القلب التداخلية، أجرى أكثر من 1500 عملية توسيع للشرايين التاجية وتركيب دعامات للقلب. يرأس وحدة تقييم آلام الصدر ويراجع صور القسطرة لتقديم الرأي الطبي الثاني."
+  },
+  {
+    "id": "doc-cai-card-02",
+    "nameEn": "Dr. Mona El-Sayed",
+    "nameAr": "د. منى السيد",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-cai-01",
+    "yearsExperience": 12,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 45,
+    "rating": 4.6,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Cardiologist focused on heart failure, echocardiography and women's heart health. Runs a telemedicine follow-up clinic for patients outside Cairo.",
+    "bioAr": "طبيبة قلب متخصصة في قصور القلب وتخطيط صدى القلب (الإيكو) وصحة القلب لدى النساء. تدير عيادة متابعة عن بُعد للمرضى خارج القاهرة."
+  },
+  {
+    "id": "doc-cai-card-03",
+    "nameEn": "Dr. Hany Mostafa",
+    "nameAr": "د. هاني مصطفى",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-cai-02",
+    "yearsExperience": 9,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 30,
+    "rating": 4.3,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": false,
+    "bioEn": "General cardiologist managing high blood pressure, palpitations and Holter monitoring. Known for affordable first consultations.",
+    "bioAr": "طبيب قلب عام يتابع حالات ارتفاع ضغط الدم والخفقان وتركيب جهاز هولتر. معروف بأسعار كشف أولى مناسبة."
+  },
+  {
+    "id": "doc-giz-card-01",
+    "nameEn": "Dr. Laila Abdelrahman",
+    "nameAr": "د. ليلى عبد الرحمن",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-giz-01",
+    "yearsExperience": 15,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 40,
+    "rating": 4.5,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": false,
+    "bioEn": "Preventive cardiologist experienced in exercise stress testing, cholesterol management and cardiovascular risk assessment. Offers second-opinion reviews of stress tests.",
+    "bioAr": "استشارية طب القلب الوقائي، خبرة في اختبارات المجهود وعلاج الكوليسترول وتقييم مخاطر أمراض القلب. تقدم رأيًا ثانيًا في نتائج اختبارات المجهود."
+  },
+  {
+    "id": "doc-alx-card-01",
+    "nameEn": "Dr. Omar Nassar",
+    "nameAr": "د. عمر نصار",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-alx-01",
+    "yearsExperience": 20,
+    "languages": [
+      "ar",
+      "en",
+      "de"
+    ],
+    "consultationFeeUsd": 55,
+    "rating": 4.7,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Cardiac electrophysiologist treating arrhythmias such as atrial fibrillation, with experience in pacemaker implantation and catheter ablation.",
+    "bioAr": "استشاري كهرباء القلب، يعالج اضطرابات النظم مثل الرجفان الأذيني، وله خبرة في زراعة منظم ضربات القلب والكي بالقسطرة."
+  },
+  {
+    "id": "doc-ist-card-01",
+    "nameEn": "Dr. Emre Yilmaz",
+    "nameAr": "د. أمره يلماز",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-ist-01",
+    "yearsExperience": 22,
+    "languages": [
+      "tr",
+      "en",
+      "ar"
+    ],
+    "consultationFeeUsd": 150,
+    "rating": 4.9,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Senior interventional cardiologist specialising in complex coronary stenting with drug-eluting stents and structural heart procedures (TAVI). Regularly treats international patients.",
+    "bioAr": "استشاري أول في قسطرة القلب التداخلية، متخصص في تركيب الدعامات الدوائية للحالات المعقدة وإجراءات القلب الهيكلية (تغيير الصمام بالقسطرة). يعالج المرضى الدوليين بانتظام."
+  },
+  {
+    "id": "doc-ist-card-02",
+    "nameEn": "Dr. Selin Kaya",
+    "nameAr": "د. سيلين كايا",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-ist-02",
+    "yearsExperience": 10,
+    "languages": [
+      "tr",
+      "en"
+    ],
+    "consultationFeeUsd": 70,
+    "rating": 4.5,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "General cardiologist offering heart check-ups, echocardiography and blood-pressure management at outpatient prices.",
+    "bioAr": "طبيبة قلب عامة تقدم فحوصات القلب الشاملة وتخطيط صدى القلب وعلاج ضغط الدم بأسعار العيادات الخارجية."
+  },
+  {
+    "id": "doc-ist-card-03",
+    "nameEn": "Dr. Burak Demir",
+    "nameAr": "د. بوراك دمير",
+    "specialtyCode": "CARDIOLOGY",
+    "hospitalId": "hos-ist-02",
+    "yearsExperience": 7,
+    "languages": [
+      "tr",
+      "en",
+      "ar"
+    ],
+    "consultationFeeUsd": 55,
+    "rating": 4.2,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": false,
+    "bioEn": "Outpatient cardiologist for hypertension and follow-up care after stent placement, including medication review for international patients before they fly home.",
+    "bioAr": "طبيب قلب في العيادات الخارجية لعلاج ارتفاع الضغط والمتابعة بعد تركيب الدعامات، بما في ذلك مراجعة الأدوية للمرضى الدوليين قبل عودتهم."
+  },
+  {
+    "id": "doc-giz-orth-01",
+    "nameEn": "Dr. Tarek Hamdy",
+    "nameAr": "د. طارق حمدي",
+    "specialtyCode": "ORTHOPEDICS",
+    "hospitalId": "hos-giz-02",
+    "yearsExperience": 19,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 50,
+    "rating": 4.7,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Orthopaedic surgeon specialising in knee replacement and ACL reconstruction. Frequently provides second opinions on whether knee surgery is needed or whether physiotherapy can be tried first.",
+    "bioAr": "جراح عظام متخصص في تغيير مفصل الركبة وإعادة بناء الرباط الصليبي. يقدم كثيرًا رأيًا ثانيًا حول مدى الحاجة لجراحة الركبة أو إمكانية تجربة العلاج الطبيعي أولًا."
+  },
+  {
+    "id": "doc-giz-orth-02",
+    "nameEn": "Dr. Rania Samir",
+    "nameAr": "د. رانيا سمير",
+    "specialtyCode": "ORTHOPEDICS",
+    "hospitalId": "hos-giz-02",
+    "yearsExperience": 11,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 35,
+    "rating": 4.4,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": false,
+    "bioEn": "Sports-medicine orthopaedic surgeon treating meniscus tears and ligament injuries with knee arthroscopy.",
+    "bioAr": "جراحة عظام متخصصة في الطب الرياضي، تعالج تمزق الغضروف الهلالي وإصابات الأربطة بمنظار الركبة."
+  },
+  {
+    "id": "doc-cai-orth-01",
+    "nameEn": "Dr. Ahmed Galal",
+    "nameAr": "د. أحمد جلال",
+    "specialtyCode": "ORTHOPEDICS",
+    "hospitalId": "hos-cai-02",
+    "yearsExperience": 14,
+    "languages": [
+      "ar"
+    ],
+    "consultationFeeUsd": 30,
+    "rating": 4.2,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": false,
+    "bioEn": "Orthopaedic trauma surgeon treating fractures and dislocations.",
+    "bioAr": "جراح عظام متخصص في الإصابات، يعالج الكسور والخلع."
+  },
+  {
+    "id": "doc-alx-orth-01",
+    "nameEn": "Dr. Youssef Ibrahim",
+    "nameAr": "د. يوسف إبراهيم",
+    "specialtyCode": "ORTHOPEDICS",
+    "hospitalId": "hos-alx-01",
+    "yearsExperience": 16,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 40,
+    "rating": 4.5,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Orthopaedic surgeon for hip and knee joint disease and degenerative spine conditions; reviews MRI reports remotely for second opinions.",
+    "bioAr": "جراح عظام لأمراض مفصلي الورك والركبة وأمراض العمود الفقري التنكسية، ويراجع تقارير الرنين المغناطيسي عن بُعد لتقديم رأي ثانٍ."
+  },
+  {
+    "id": "doc-ist-orth-01",
+    "nameEn": "Dr. Mehmet Arslan",
+    "nameAr": "د. محمد أرسلان",
+    "specialtyCode": "ORTHOPEDICS",
+    "hospitalId": "hos-ist-01",
+    "yearsExperience": 24,
+    "languages": [
+      "tr",
+      "en",
+      "ar"
+    ],
+    "consultationFeeUsd": 180,
+    "rating": 4.8,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Senior orthopaedic surgeon performing robotic-assisted knee and hip replacement for international patients, with a structured pre-travel second-opinion review.",
+    "bioAr": "جراح عظام أول يجري جراحات تغيير مفصل الركبة والورك بمساعدة الروبوت للمرضى الدوليين، مع مراجعة منظمة للرأي الثاني قبل السفر."
+  },
+  {
+    "id": "doc-cai-neur-01",
+    "nameEn": "Dr. Sherif Adel",
+    "nameAr": "د. شريف عادل",
+    "specialtyCode": "NEUROLOGY",
+    "hospitalId": "hos-cai-02",
+    "yearsExperience": 13,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 40,
+    "rating": 4.5,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Neurologist treating migraine, chronic headache and epilepsy.",
+    "bioAr": "طبيب أعصاب يعالج الصداع النصفي والصداع المزمن والصرع."
+  },
+  {
+    "id": "doc-alx-neur-01",
+    "nameEn": "Dr. Dina Farouk",
+    "nameAr": "د. دينا فاروق",
+    "specialtyCode": "NEUROLOGY",
+    "hospitalId": "hos-alx-01",
+    "yearsExperience": 17,
+    "languages": [
+      "ar",
+      "en",
+      "fr"
+    ],
+    "consultationFeeUsd": 45,
+    "rating": 4.7,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Stroke neurologist working in the hospital stroke unit and running a stroke-prevention clinic.",
+    "bioAr": "طبيبة أعصاب متخصصة في السكتات الدماغية تعمل في وحدة السكتات بالمستشفى وتدير عيادة للوقاية من السكتة."
+  },
+  {
+    "id": "doc-ist-neur-01",
+    "nameEn": "Dr. Ayse Celik",
+    "nameAr": "د. عائشة جليك",
+    "specialtyCode": "NEUROLOGY",
+    "hospitalId": "hos-ist-01",
+    "yearsExperience": 15,
+    "languages": [
+      "tr",
+      "en"
+    ],
+    "consultationFeeUsd": 140,
+    "rating": 4.6,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Neurologist specialising in movement disorders such as Parkinson's disease.",
+    "bioAr": "طبيبة أعصاب متخصصة في اضطرابات الحركة مثل مرض باركنسون."
+  },
+  {
+    "id": "doc-cai-gp-01",
+    "nameEn": "Dr. Nour Hassan",
+    "nameAr": "د. نور حسن",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "hospitalId": "hos-cai-02",
+    "yearsExperience": 8,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 20,
+    "rating": 4.4,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Family physician for common illnesses, check-ups and referrals to the right specialist.",
+    "bioAr": "طبيبة أسرة للأمراض الشائعة والفحوصات الدورية والتحويل إلى التخصص المناسب."
+  },
+  {
+    "id": "doc-giz-gp-01",
+    "nameEn": "Dr. Mahmoud Zaki",
+    "nameAr": "د. محمود زكي",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "hospitalId": "hos-giz-01",
+    "yearsExperience": 10,
+    "languages": [
+      "ar"
+    ],
+    "consultationFeeUsd": 15,
+    "rating": 4.1,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": false,
+    "bioEn": "General practitioner for fever, infections and chronic-disease follow-up.",
+    "bioAr": "ممارس عام لعلاج الحمى والعدوى ومتابعة الأمراض المزمنة."
+  },
+  {
+    "id": "doc-alx-gp-01",
+    "nameEn": "Dr. Heba Mansour",
+    "nameAr": "د. هبة منصور",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "hospitalId": "hos-alx-02",
+    "yearsExperience": 12,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 18,
+    "rating": 4.5,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Family physician offering routine check-ups, vaccination advice and telemedicine consultations.",
+    "bioAr": "طبيبة أسرة تقدم الفحوصات الدورية ونصائح التطعيم والاستشارات عن بُعد."
+  },
+  {
+    "id": "doc-ist-gp-01",
+    "nameEn": "Dr. Can Ozturk",
+    "nameAr": "د. جان أوزتورك",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "hospitalId": "hos-ist-02",
+    "yearsExperience": 9,
+    "languages": [
+      "tr",
+      "en"
+    ],
+    "consultationFeeUsd": 40,
+    "rating": 4.3,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "General practitioner who coordinates care for visiting patients in Istanbul.",
+    "bioAr": "ممارس عام ينسق الرعاية للمرضى الزائرين في إسطنبول."
+  },
+  {
+    "id": "doc-cai-gast-01",
+    "nameEn": "Dr. Walid Kamal",
+    "nameAr": "د. وليد كمال",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "hospitalId": "hos-cai-02",
+    "yearsExperience": 16,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 40,
+    "rating": 4.6,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": false,
+    "bioEn": "Gastroenterologist performing endoscopy and colonoscopy, with an interest in inflammatory bowel disease and fatty liver.",
+    "bioAr": "طبيب جهاز هضمي يجري المناظير العلوية والقولون، ومهتم بأمراض الأمعاء الالتهابية والكبد الدهني."
+  },
+  {
+    "id": "doc-alx-gast-01",
+    "nameEn": "Dr. Samia Lotfy",
+    "nameAr": "د. سامية لطفي",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "hospitalId": "hos-alx-01",
+    "yearsExperience": 11,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 35,
+    "rating": 4.4,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Gastroenterologist treating reflux, heartburn and irritable bowel syndrome.",
+    "bioAr": "طبيبة جهاز هضمي تعالج الارتجاع وحرقة المعدة والقولون العصبي."
+  },
+  {
+    "id": "doc-giz-pulm-01",
+    "nameEn": "Dr. Amr Salah",
+    "nameAr": "د. عمرو صلاح",
+    "specialtyCode": "PULMONOLOGY",
+    "hospitalId": "hos-giz-01",
+    "yearsExperience": 14,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 35,
+    "rating": 4.5,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Chest physician treating asthma, COPD and sleep apnoea, with lung-function testing on site.",
+    "bioAr": "طبيب صدر يعالج الربو والانسداد الرئوي المزمن وانقطاع النفس أثناء النوم، مع إجراء اختبارات وظائف الرئة بالمركز."
+  },
+  {
+    "id": "doc-ist-pulm-01",
+    "nameEn": "Dr. Zeynep Aydin",
+    "nameAr": "د. زينب أيدين",
+    "specialtyCode": "PULMONOLOGY",
+    "hospitalId": "hos-ist-01",
+    "yearsExperience": 12,
+    "languages": [
+      "tr",
+      "en"
+    ],
+    "consultationFeeUsd": 120,
+    "rating": 4.6,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Pulmonologist focused on interstitial lung disease and chronic cough.",
+    "bioAr": "طبيبة صدر متخصصة في أمراض الرئة الخلالية والسعال المزمن."
+  },
+  {
+    "id": "doc-cai-derm-01",
+    "nameEn": "Dr. Yasmin Ragab",
+    "nameAr": "د. ياسمين رجب",
+    "specialtyCode": "DERMATOLOGY",
+    "hospitalId": "hos-cai-03",
+    "yearsExperience": 9,
+    "languages": [
+      "ar",
+      "en",
+      "fr"
+    ],
+    "consultationFeeUsd": 35,
+    "rating": 4.6,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Dermatologist for acne, eczema, psoriasis and mole checks.",
+    "bioAr": "طبيبة جلدية لعلاج حب الشباب والإكزيما والصدفية وفحص الشامات."
+  },
+  {
+    "id": "doc-alx-derm-01",
+    "nameEn": "Dr. Khaled Shawky",
+    "nameAr": "د. خالد شوقي",
+    "specialtyCode": "DERMATOLOGY",
+    "hospitalId": "hos-alx-02",
+    "yearsExperience": 13,
+    "languages": [
+      "ar"
+    ],
+    "consultationFeeUsd": 20,
+    "rating": 4.3,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": false,
+    "bioEn": "Dermatologist treating skin allergies, rashes and fungal infections.",
+    "bioAr": "طبيب جلدية يعالج حساسية الجلد والطفح الجلدي والعدوى الفطرية."
+  },
+  {
+    "id": "doc-cai-onc-01",
+    "nameEn": "Dr. Magdy Farid",
+    "nameAr": "د. مجدي فريد",
+    "specialtyCode": "ONCOLOGY",
+    "hospitalId": "hos-cai-03",
+    "yearsExperience": 25,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 70,
+    "rating": 4.8,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Medical oncologist for breast and gastrointestinal cancers who chairs a weekly tumour board and offers remote second-opinion review of pathology reports.",
+    "bioAr": "استشاري أورام لسرطانات الثدي والجهاز الهضمي، يرأس لجنة أورام أسبوعية ويقدم رأيًا ثانيًا عن بُعد في تقارير الباثولوجي."
+  },
+  {
+    "id": "doc-ist-onc-01",
+    "nameEn": "Dr. Elif Sahin",
+    "nameAr": "د. إليف شاهين",
+    "specialtyCode": "ONCOLOGY",
+    "hospitalId": "hos-ist-01",
+    "yearsExperience": 18,
+    "languages": [
+      "tr",
+      "en",
+      "ar"
+    ],
+    "consultationFeeUsd": 200,
+    "rating": 4.9,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Oncologist specialising in lung cancer and immunotherapy, with an international-patient second-opinion programme.",
+    "bioAr": "استشارية أورام متخصصة في سرطان الرئة والعلاج المناعي، ولديها برنامج رأي ثانٍ للمرضى الدوليين."
+  },
+  {
+    "id": "doc-cai-psy-01",
+    "nameEn": "Dr. Reem Abdallah",
+    "nameAr": "د. ريم عبد الله",
+    "specialtyCode": "PSYCHIATRY",
+    "hospitalId": "hos-cai-02",
+    "yearsExperience": 10,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 35,
+    "rating": 4.7,
+    "offersSecondOpinion": false,
+    "offersTelemedicine": true,
+    "bioEn": "Psychiatrist treating anxiety, depression and sleep problems, with confidential telemedicine sessions.",
+    "bioAr": "طبيبة نفسية تعالج القلق والاكتئاب ومشكلات النوم، مع جلسات سرية عن بُعد."
+  },
+  {
+    "id": "doc-cai-endo-01",
+    "nameEn": "Dr. Hossam Eldin Naguib",
+    "nameAr": "د. حسام الدين نجيب",
+    "specialtyCode": "ENDOCRINOLOGY",
+    "hospitalId": "hos-cai-03",
+    "yearsExperience": 15,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "consultationFeeUsd": 40,
+    "rating": 4.5,
+    "offersSecondOpinion": true,
+    "offersTelemedicine": true,
+    "bioEn": "Endocrinologist for diabetes, thyroid disorders and obesity management.",
+    "bioAr": "طبيب غدد صماء لعلاج السكري واضطرابات الغدة الدرقية والسمنة."
+  }
+]

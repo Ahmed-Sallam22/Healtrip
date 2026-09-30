@@ -1,0 +1,65 @@
+[
+  {
+    "id": "hos-cai-01", "nameEn": "Nile Heart Institute", "nameAr": "معهد النيل للقلب",
+    "city": "Cairo", "country": "EG", "hasEmergency": true, "is24h": true, "accreditation": "JCI",
+    "lat": 30.0444, "lng": 31.2357, "phone": "+20-2-5550-0101",
+    "profileEn": "Nile Heart Institute is a cardiac-focused hospital in central Cairo with a 24-hour emergency department, a cardiac catheterisation lab for coronary angiography and stenting, and a chest-pain assessment unit. International patient desk speaks Arabic, English and French.",
+    "profileAr": "معهد النيل للقلب مستشفى متخصص في أمراض القلب بوسط القاهرة، يضم قسم طوارئ يعمل على مدار 24 ساعة، ومعمل قسطرة قلبية لتصوير الشرايين التاجية وتركيب الدعامات، ووحدة لتقييم آلام الصدر. مكتب المرضى الدوليين يتحدث العربية والإنجليزية والفرنسية."
+  },
+  {
+    "id": "hos-cai-02", "nameEn": "Cairo Care General Hospital", "nameAr": "مستشفى كايرو كير العام",
+    "city": "Cairo", "country": "EG", "hasEmergency": true, "is24h": true, "accreditation": null,
+    "lat": 30.0626, "lng": 31.3417, "phone": "+20-2-5550-0202",
+    "profileEn": "Cairo Care General Hospital in Nasr City is a multi-specialty hospital with a 24-hour emergency department, general practice clinics, gastroenterology, neurology and a mental-health outpatient service.",
+    "profileAr": "مستشفى كايرو كير العام في مدينة نصر مستشفى متعدد التخصصات به قسم طوارئ على مدار 24 ساعة، وعيادات طب الأسرة، وأمراض الجهاز الهضمي، والأمراض العصبية، وعيادة خارجية للصحة النفسية."
+  },
+  {
+    "id": "hos-cai-03", "nameEn": "Zamalek Specialty Clinics", "nameAr": "عيادات الزمالك التخصصية",
+    "city": "Cairo", "country": "EG", "hasEmergency": false, "is24h": false, "accreditation": null,
+    "lat": 30.0609, "lng": 31.2197, "phone": "+20-2-5550-0303",
+    "profileEn": "Zamalek Specialty Clinics is an outpatient centre (no emergency department) offering scheduled consultations in dermatology, endocrinology, oncology and second-opinion reviews, including remote review of reports and imaging.",
+    "profileAr": "عيادات الزمالك التخصصية مركز للعيادات الخارجية (بدون قسم طوارئ) يقدم استشارات بمواعيد مسبقة في الجلدية والغدد الصماء والأورام ومراجعات الرأي الطبي الثاني، بما في ذلك المراجعة عن بُعد للتقارير والأشعة."
+  },
+  {
+    "id": "hos-giz-01", "nameEn": "Pyramids Medical Center", "nameAr": "مركز الأهرام الطبي",
+    "city": "Giza", "country": "EG", "hasEmergency": true, "is24h": true, "accreditation": "GAHAR",
+    "lat": 29.9870, "lng": 31.2118, "phone": "+20-2-5550-0404",
+    "profileEn": "Pyramids Medical Center in Giza has a 24-hour emergency department, cardiology and pulmonology clinics, and an imaging department with CT and MRI.",
+    "profileAr": "مركز الأهرام الطبي في الجيزة يضم قسم طوارئ على مدار 24 ساعة، وعيادات أمراض القلب والصدر، وقسم أشعة مجهز بالأشعة المقطعية والرنين المغناطيسي."
+  },
+  {
+    "id": "hos-giz-02", "nameEn": "October Orthopedic & Spine Hospital", "nameAr": "مستشفى أكتوبر للعظام والعمود الفقري",
+    "city": "Giza", "country": "EG", "hasEmergency": false, "is24h": false, "accreditation": null,
+    "lat": 29.9602, "lng": 30.9270, "phone": "+20-2-5550-0505",
+    "profileEn": "October Orthopedic & Spine Hospital in 6th of October City focuses on planned orthopaedic surgery: knee and hip replacement, arthroscopy, sports injuries and spine care. It does not run an emergency department.",
+    "profileAr": "مستشفى أكتوبر للعظام والعمود الفقري في مدينة السادس من أكتوبر متخصص في جراحات العظام المخططة مسبقًا: تغيير مفصل الركبة والورك، والمناظير، وإصابات الملاعب، وعلاج العمود الفقري. لا يوجد به قسم طوارئ."
+  },
+  {
+    "id": "hos-alx-01", "nameEn": "Mediterranean University Hospital", "nameAr": "مستشفى المتوسط الجامعي",
+    "city": "Alexandria", "country": "EG", "hasEmergency": true, "is24h": true, "accreditation": "JCI",
+    "lat": 31.2001, "lng": 29.9187, "phone": "+20-3-5550-0606",
+    "profileEn": "Mediterranean University Hospital in Alexandria is a teaching hospital with a 24-hour emergency department, a stroke unit, cardiology, oncology and orthopaedics.",
+    "profileAr": "مستشفى المتوسط الجامعي في الإسكندرية مستشفى تعليمي به قسم طوارئ على مدار 24 ساعة، ووحدة للسكتات الدماغية، وأقسام للقلب والأورام والعظام."
+  },
+  {
+    "id": "hos-alx-02", "nameEn": "Alexandria Family Clinic", "nameAr": "عيادة الإسكندرية للأسرة",
+    "city": "Alexandria", "country": "EG", "hasEmergency": false, "is24h": false, "accreditation": null,
+    "lat": 31.2156, "lng": 29.9553, "phone": "+20-3-5550-0707",
+    "profileEn": "Alexandria Family Clinic is a neighbourhood outpatient clinic for family medicine, dermatology and routine check-ups. No emergency department.",
+    "profileAr": "عيادة الإسكندرية للأسرة عيادة خارجية لطب الأسرة والجلدية والفحوصات الدورية. لا يوجد بها قسم طوارئ."
+  },
+  {
+    "id": "hos-ist-01", "nameEn": "Bosphorus International Hospital", "nameAr": "مستشفى البوسفور الدولي",
+    "city": "Istanbul", "country": "TR", "hasEmergency": true, "is24h": true, "accreditation": "JCI",
+    "lat": 41.0438, "lng": 29.0094, "phone": "+90-212-555-0808",
+    "profileEn": "Bosphorus International Hospital in Istanbul serves many international patients. It has a 24-hour emergency department, an interventional cardiology unit, orthopaedics and oncology, and offers airport transfer and interpreter services in Arabic and English.",
+    "profileAr": "مستشفى البوسفور الدولي في إسطنبول يستقبل عددًا كبيرًا من المرضى الدوليين. يضم قسم طوارئ على مدار 24 ساعة، ووحدة لقسطرة القلب التداخلية، والعظام، والأورام، ويوفر خدمة التوصيل من المطار ومترجمين باللغتين العربية والإنجليزية."
+  },
+  {
+    "id": "hos-ist-02", "nameEn": "Anatolia Health Center", "nameAr": "مركز الأناضول الصحي",
+    "city": "Istanbul", "country": "TR", "hasEmergency": false, "is24h": false, "accreditation": null,
+    "lat": 40.9923, "lng": 29.0275, "phone": "+90-216-555-0909",
+    "profileEn": "Anatolia Health Center on Istanbul's Asian side is an outpatient centre with lower consultation fees, offering cardiology, general practice and dermatology clinics. No emergency department.",
+    "profileAr": "مركز الأناضول الصحي على الجانب الآسيوي من إسطنبول مركز للعيادات الخارجية بأسعار كشف أقل، ويقدم عيادات القلب وطب الأسرة والجلدية. لا يوجد به قسم طوارئ."
+  }
+]

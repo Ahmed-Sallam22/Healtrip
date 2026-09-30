@@ -1,0 +1,153 @@
+// HealTrip — relational schema (public schema, owned by the NestJS API).
+// The `rag` schema (documents, chunks, embeddings) is owned by the Python RAG service
+// and intentionally NOT modelled here: one service owns each schema.
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Specialty {
+  id       String                @id
+  code     String                @unique
+  nameEn   String
+  nameAr   String
+  doctors  Doctor[]
+  symptoms SymptomSpecialtyMap[]
+}
+
+model Hospital {
+  id            String   @id
+  nameEn        String
+  nameAr        String
+  city          String
+  country       String   @db.Char(2)
+  hasEmergency  Boolean  @default(false)
+  is24h         Boolean  @default(false)
+  accreditation String?
+  lat           Float
+  lng           Float
+  phone         String
+  doctors       Doctor[]
+
+  @@index([city])
+  @@index([hasEmergency, city])
+}
+
+model Doctor {
+  id                  String             @id
+  nameEn              String
+  nameAr              String
+  specialtyId         String
+  hospitalId          String
+  yearsExperience     Int
+  languages           String[]
+  consultationFeeUsd  Int
+  rating              Float
+  offersSecondOpinion Boolean            @default(false)
+  offersTelemedicine  Boolean            @default(false)
+  specialty           Specialty          @relation(fields: [specialtyId], references: [id])
+  hospital            Hospital           @relation(fields: [hospitalId], references: [id])
+  slots               AvailabilitySlot[]
+
+  @@index([specialtyId])
+  @@index([hospitalId])
+}
+
+model AvailabilitySlot {
+  id       String   @id @default(uuid()) @db.Uuid
+  doctorId String
+  startsAt DateTime @db.Timestamptz(3)
+  endsAt   DateTime @db.Timestamptz(3)
+  isBooked Boolean  @default(false)
+  doctor   Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@index([doctorId, startsAt])
+}
+
+/// Curated symptom -> specialty routing. Keeps routing in data (reviewable by clinicians),
+/// not in the model's head.
+model SymptomSpecialtyMap {
+  id             Int       @id @default(autoincrement())
+  symptomKeyword String
+  locale         String    @db.VarChar(2)
+  specialtyCode  String
+  /// routine | soon | urgent-evaluate
+  urgencyHint    String
+  specialty      Specialty @relation(fields: [specialtyCode], references: [code])
+
+  @@unique([symptomKeyword, specialtyCode])
+  @@index([symptomKeyword])
+}
+
+model ChatSession {
+  id             String        @id @default(uuid()) @db.Uuid
+  locale         String        @db.VarChar(2)
+  status         String        @default("active")
+  /// ExtractedFacts (see packages/shared/src/facts.ts)
+  extractedFacts Json          @default("{}")
+  createdAt      DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime      @updatedAt @db.Timestamptz(3)
+  messages       ChatMessage[]
+  toolCalls      ToolCallLog[]
+  agentRuns      AgentRunLog[]
+}
+
+model ChatMessage {
+  id        String      @id @default(uuid()) @db.Uuid
+  sessionId String      @db.Uuid
+  /// user | assistant
+  role      String
+  /// For user messages this is the PII-redacted text (raw PII is never stored).
+  content   String
+  /// Full structured ChatResponse for assistant messages.
+  payload   Json?
+  createdAt DateTime    @default(now()) @db.Timestamptz(3)
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+}
+
+/// Audit log of every tool call (args are model-generated and never contain raw PII,
+/// because the model only ever sees redacted text).
+model ToolCallLog {
+  id            String      @id @default(uuid()) @db.Uuid
+  sessionId     String      @db.Uuid
+  requestId     String?
+  toolName      String
+  args          Json
+  resultSummary Json
+  durationMs    Int
+  error         String?
+  createdAt     DateTime    @default(now()) @db.Timestamptz(3)
+  session       ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@index([toolName])
+}
+
+/// One row per assistant turn: which layer decided, what it decided, how long it took.
+model AgentRunLog {
+  id               String      @id @default(uuid()) @db.Uuid
+  sessionId        String      @db.Uuid
+  requestId        String?
+  /// triage | agent | fallback
+  source           String
+  nextStep         String?
+  providerIds      String[]
+  citations        String[]
+  validationErrors Json        @default("[]")
+  llmProvider      String
+  promptVersion    String
+  steps            Int
+  latencyMs        Int
+  createdAt        DateTime    @default(now()) @db.Timestamptz(3)
+  session          ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+}

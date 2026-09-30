@@ -1,0 +1,13 @@
+[
+  { "id": "spc-cardiology", "code": "CARDIOLOGY", "nameEn": "Cardiology", "nameAr": "أمراض القلب" },
+  { "id": "spc-emergency", "code": "EMERGENCY_MEDICINE", "nameEn": "Emergency Medicine", "nameAr": "طب الطوارئ" },
+  { "id": "spc-general", "code": "GENERAL_PRACTICE", "nameEn": "General Practice / Family Medicine", "nameAr": "طب الأسرة / ممارس عام" },
+  { "id": "spc-orthopedics", "code": "ORTHOPEDICS", "nameEn": "Orthopedics", "nameAr": "جراحة العظام" },
+  { "id": "spc-neurology", "code": "NEUROLOGY", "nameEn": "Neurology", "nameAr": "الأمراض العصبية" },
+  { "id": "spc-gastro", "code": "GASTROENTEROLOGY", "nameEn": "Gastroenterology", "nameAr": "أمراض الجهاز الهضمي" },
+  { "id": "spc-pulmonology", "code": "PULMONOLOGY", "nameEn": "Pulmonology", "nameAr": "أمراض الصدر والجهاز التنفسي" },
+  { "id": "spc-dermatology", "code": "DERMATOLOGY", "nameEn": "Dermatology", "nameAr": "الأمراض الجلدية" },
+  { "id": "spc-oncology", "code": "ONCOLOGY", "nameEn": "Oncology", "nameAr": "الأورام" },
+  { "id": "spc-psychiatry", "code": "PSYCHIATRY", "nameEn": "Psychiatry", "nameAr": "الطب النفسي" },
+  { "id": "spc-endocrinology", "code": "ENDOCRINOLOGY", "nameEn": "Endocrinology", "nameAr": "الغدد الصماء والسكري" }
+]

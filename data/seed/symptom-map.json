@@ -1,0 +1,476 @@
+[
+  {
+    "symptomKeyword": "chest pain",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "chest tightness",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "ألم في الصدر",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "ألم الصدر",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "وجع في الصدر",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "palpitations",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "خفقان",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "heart",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "القلب",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "high blood pressure",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "ضغط الدم",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "stent",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "دعامة",
+    "locale": "ar",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "shortness of breath",
+    "locale": "en",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "shortness of breath",
+    "locale": "en",
+    "specialtyCode": "CARDIOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "ضيق في التنفس",
+    "locale": "ar",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "cough",
+    "locale": "en",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "سعال",
+    "locale": "ar",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "كحة",
+    "locale": "ar",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "asthma",
+    "locale": "en",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "ربو",
+    "locale": "ar",
+    "specialtyCode": "PULMONOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "knee",
+    "locale": "en",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "الركبة",
+    "locale": "ar",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "ركبة",
+    "locale": "ar",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "back pain",
+    "locale": "en",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "ألم الظهر",
+    "locale": "ar",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "joint pain",
+    "locale": "en",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "ألم المفاصل",
+    "locale": "ar",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "fracture",
+    "locale": "en",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "كسر",
+    "locale": "ar",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "hip",
+    "locale": "en",
+    "specialtyCode": "ORTHOPEDICS",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "headache",
+    "locale": "en",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "صداع",
+    "locale": "ar",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "migraine",
+    "locale": "en",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "numbness",
+    "locale": "en",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "تنميل",
+    "locale": "ar",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "dizziness",
+    "locale": "en",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "دوخة",
+    "locale": "ar",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "seizure",
+    "locale": "en",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "تشنج",
+    "locale": "ar",
+    "specialtyCode": "NEUROLOGY",
+    "urgencyHint": "urgent-evaluate"
+  },
+  {
+    "symptomKeyword": "abdominal pain",
+    "locale": "en",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "stomach pain",
+    "locale": "en",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "ألم في البطن",
+    "locale": "ar",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "المعدة",
+    "locale": "ar",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "heartburn",
+    "locale": "en",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "حرقة",
+    "locale": "ar",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "reflux",
+    "locale": "en",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "ارتجاع",
+    "locale": "ar",
+    "specialtyCode": "GASTROENTEROLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "rash",
+    "locale": "en",
+    "specialtyCode": "DERMATOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "طفح جلدي",
+    "locale": "ar",
+    "specialtyCode": "DERMATOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "acne",
+    "locale": "en",
+    "specialtyCode": "DERMATOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "حب الشباب",
+    "locale": "ar",
+    "specialtyCode": "DERMATOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "eczema",
+    "locale": "en",
+    "specialtyCode": "DERMATOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "fever",
+    "locale": "en",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "حمى",
+    "locale": "ar",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "سخونية",
+    "locale": "ar",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "fatigue",
+    "locale": "en",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "تعب",
+    "locale": "ar",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "sore throat",
+    "locale": "en",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "التهاب الحلق",
+    "locale": "ar",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "check-up",
+    "locale": "en",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "فحص",
+    "locale": "ar",
+    "specialtyCode": "GENERAL_PRACTICE",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "anxiety",
+    "locale": "en",
+    "specialtyCode": "PSYCHIATRY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "قلق",
+    "locale": "ar",
+    "specialtyCode": "PSYCHIATRY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "depression",
+    "locale": "en",
+    "specialtyCode": "PSYCHIATRY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "اكتئاب",
+    "locale": "ar",
+    "specialtyCode": "PSYCHIATRY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "insomnia",
+    "locale": "en",
+    "specialtyCode": "PSYCHIATRY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "أرق",
+    "locale": "ar",
+    "specialtyCode": "PSYCHIATRY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "diabetes",
+    "locale": "en",
+    "specialtyCode": "ENDOCRINOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "السكري",
+    "locale": "ar",
+    "specialtyCode": "ENDOCRINOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "سكر",
+    "locale": "ar",
+    "specialtyCode": "ENDOCRINOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "thyroid",
+    "locale": "en",
+    "specialtyCode": "ENDOCRINOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "الغدة الدرقية",
+    "locale": "ar",
+    "specialtyCode": "ENDOCRINOLOGY",
+    "urgencyHint": "routine"
+  },
+  {
+    "symptomKeyword": "tumor",
+    "locale": "en",
+    "specialtyCode": "ONCOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "lump",
+    "locale": "en",
+    "specialtyCode": "ONCOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "cancer",
+    "locale": "en",
+    "specialtyCode": "ONCOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "ورم",
+    "locale": "ar",
+    "specialtyCode": "ONCOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "سرطان",
+    "locale": "ar",
+    "specialtyCode": "ONCOLOGY",
+    "urgencyHint": "soon"
+  },
+  {
+    "symptomKeyword": "كتلة",
+    "locale": "ar",
+    "specialtyCode": "ONCOLOGY",
+    "urgencyHint": "soon"
+  }
+]
