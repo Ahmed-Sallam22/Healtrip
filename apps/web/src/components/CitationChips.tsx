@@ -10,23 +10,25 @@ export function CitationChips({ citations }: { citations: Citation[] }) {
     <ul className="flex flex-wrap gap-2">
       {citations.map((c) => (
         <li key={c.chunkId} className="max-w-full">
-          <details className="group rounded-2xl border border-slate-200 bg-slate-50 text-xs open:bg-white">
+          <details className="group rounded-2xl border border-slate-200 bg-white text-xs shadow-sm transition hover:border-slate-300 open:shadow-md">
             <summary
-              className="flex cursor-pointer list-none items-center gap-1.5 px-2.5 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="flex cursor-pointer list-none items-center gap-1.5 px-3 py-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               title={c.snippet}
             >
               <span
                 aria-hidden="true"
-                className="inline-flex h-4 min-w-4 items-center justify-center rounded bg-slate-200 px-1 text-[10px] font-bold text-slate-700"
+                className="inline-flex h-5 min-w-5 items-center justify-center rounded-md bg-blue-50 px-1 text-[10px] font-bold text-blue-700"
               >
                 {ICONS[c.sourceType]}
               </span>
               <span className="text-slate-500">{t.citation[c.sourceType]}</span>
-              <span>
-                {t.citation.source} {c.title}
+              <span className="font-medium text-slate-700" dir="auto">
+                {c.title}
               </span>
             </summary>
-            <blockquote className="border-t border-slate-200 px-3 py-2 text-slate-700">{c.snippet}</blockquote>
+            <blockquote className="border-t border-slate-100 px-3 py-2 leading-relaxed text-slate-600" dir="auto">
+              {c.snippet}
+            </blockquote>
           </details>
         </li>
       ))}

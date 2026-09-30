@@ -19,8 +19,8 @@ export function TracePanel({ trace, promptVersion }: { trace: TraceEntry[]; prom
   const { t } = useI18n();
   const failures = trace.filter((e) => !e.ok).length;
   return (
-    <details className="rounded-md border border-slate-200 bg-slate-50 text-xs">
-      <summary className="cursor-pointer px-3 py-2 text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+    <details className="rounded-2xl border border-slate-200 bg-slate-50/70 text-xs">
+      <summary className="cursor-pointer rounded-2xl px-3 py-2 text-slate-500 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
         {t.trace.panelTitle} · {format(t.trace.steps, { count: trace.length })}
         {failures > 0 && (
           <span className="ms-2 rounded bg-red-100 px-1.5 text-red-700">

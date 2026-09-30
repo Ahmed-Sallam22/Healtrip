@@ -21,7 +21,7 @@ export function Toast({ toast, onDismiss }: { toast: ToastData; onDismiss: () =>
   return (
     <div
       role="alert"
-      className="fixed inset-x-4 bottom-28 z-20 mx-auto flex max-w-md items-start gap-3 rounded-lg bg-slate-900 px-4 py-3 text-white shadow-lg"
+      className="fixed inset-x-4 bottom-28 z-20 mx-auto flex max-w-md animate-fade-up items-start gap-3 rounded-2xl bg-slate-900 px-4 py-3 text-white shadow-xl"
     >
       <div className="flex-1">
         <p className="text-sm">{toast.message}</p>

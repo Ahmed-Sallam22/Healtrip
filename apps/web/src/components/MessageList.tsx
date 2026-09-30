@@ -2,8 +2,10 @@ import { useEffect, useRef } from 'react';
 import type { TraceEntry } from '@healtrip/shared';
 import type { UiMessage } from '@/lib/chat';
 import { traceLabel } from '@/lib/chat';
+import { detectLocale } from '@/lib/i18n';
 import { useI18n } from '@/lib/i18n-context';
 import { AssistantMessage } from './AssistantMessage';
+import { LogoIcon } from './icons';
 
 interface Props {
   messages: UiMessage[];
@@ -23,44 +25,54 @@ export function MessageList({ messages, pendingTrace, showTrace, onPickQuestion 
 
   return (
     <div role="log" aria-live="polite" aria-label={t.messages.listLabel} aria-busy={pendingTrace !== null}>
-      <ol className="space-y-4">
-        {messages.map((m) => (
-          <li key={m.id} className={m.role === 'user' ? 'flex justify-end' : 'flex justify-start'}>
-            <div
-              className={
-                m.role === 'user'
-                  ? 'max-w-[85%] rounded-2xl rounded-ee-sm bg-blue-600 px-4 py-2 text-white'
-                  : 'w-full max-w-[95%] rounded-2xl rounded-es-sm border border-slate-200 bg-white px-4 py-3'
-              }
-            >
-              <span className="sr-only">{m.role === 'user' ? t.messages.you : t.messages.assistant}: </span>
-              {m.role === 'user' ? (
-                <p className="whitespace-pre-wrap" dir="auto">
+      <ol className="space-y-5">
+        {messages.map((m) =>
+          m.role === 'user' ? (
+            <li key={m.id} className="flex animate-fade-up justify-end">
+              <div className="max-w-[85%] rounded-3xl rounded-ee-md bg-gradient-to-br from-blue-600 to-blue-500 px-4 py-2.5 text-white shadow-md shadow-blue-600/15">
+                <span className="sr-only">{t.messages.you}: </span>
+                <p className="whitespace-pre-wrap" dir="auto" lang={detectLocale(m.content) ?? undefined}>
                   {m.content}
                 </p>
-              ) : (
+              </div>
+            </li>
+          ) : (
+            <li key={m.id} className="flex animate-fade-up items-start gap-3">
+              <AssistantAvatar />
+              <div className="min-w-0 flex-1 rounded-3xl rounded-ss-md border border-slate-200/80 bg-white px-4 py-4 shadow-sm sm:px-5">
+                <span className="sr-only">{t.messages.assistant}: </span>
                 <AssistantMessage
                   content={m.content}
                   response={m.response}
                   showTrace={showTrace}
                   onPickQuestion={onPickQuestion}
                 />
-              )}
-            </div>
-          </li>
-        ))}
+              </div>
+            </li>
+          ),
+        )}
         {pendingTrace && (
-          <li className="flex justify-start">
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-3 text-sm text-slate-600">
+          <li className="flex animate-fade-up items-start gap-3">
+            <AssistantAvatar />
+            <div className="rounded-3xl rounded-ss-md border border-slate-200/80 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
               <p className="flex items-center gap-2">
-                <span aria-hidden="true" className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
+                <span aria-hidden="true" className="flex gap-1">
+                  {[0, 1, 2].map((i) => (
+                    <span
+                      key={i}
+                      className="h-1.5 w-1.5 animate-dot-bounce rounded-full bg-blue-500"
+                      style={{ animationDelay: `${i * 0.16}s` }}
+                    />
+                  ))}
+                </span>
                 {t.messages.thinking}
               </p>
               {pendingTrace.length > 0 && (
-                <ul className="mt-2 space-y-0.5 text-xs">
+                <ul className="mt-2 space-y-1 text-xs">
                   {pendingTrace.map((e) => (
-                    <li key={`${e.step}-${e.name}`} className={e.ok ? '' : 'text-red-700'}>
-                      {e.ok ? '✓' : '✗'} {traceLabel(e, t.trace)}
+                    <li key={`${e.step}-${e.name}`} className={`flex items-center gap-1.5 ${e.ok ? 'text-slate-500' : 'text-red-700'}`}>
+                      <span aria-hidden="true" className={e.ok ? 'text-emerald-600' : ''}>{e.ok ? '✓' : '✗'}</span>
+                      {traceLabel(e, t.trace)}
                     </li>
                   ))}
                 </ul>
@@ -71,5 +83,16 @@ export function MessageList({ messages, pendingTrace, showTrace, onPickQuestion 
       </ol>
       <div ref={endRef} />
     </div>
+  );
+}
+
+function AssistantAvatar() {
+  return (
+    <span
+      aria-hidden="true"
+      className="mt-1 hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-base text-white shadow-sm sm:flex"
+    >
+      <LogoIcon />
+    </span>
   );
 }

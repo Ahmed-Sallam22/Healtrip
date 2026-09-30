@@ -11,11 +11,12 @@ import {
   storeSessionId,
   type UiMessage,
 } from '@/lib/chat';
-import { DEFAULT_LOCALE, dirFor, getDictionary, readStoredLocale, storeLocale } from '@/lib/i18n';
+import { DEFAULT_LOCALE, detectLocale, dirFor, getDictionary, readStoredLocale, storeLocale } from '@/lib/i18n';
 import { I18nContext } from '@/lib/i18n-context';
 import { Composer } from './Composer';
 import { EmergencyBanner } from './EmergencyBanner';
 import { HealthBanner } from './HealthBanner';
+import { LogoIcon, PlusIcon } from './icons';
 import { LocaleToggle } from './LocaleToggle';
 import { MessageList } from './MessageList';
 import { SamplePrompts } from './SamplePrompts';
@@ -96,9 +97,12 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
   }, [showError]);
 
   const send = useCallback(
-    async (rawText: string, turnLocale: Locale = locale) => {
+    async (rawText: string, explicitLocale?: Locale) => {
       const text = rawText.trim();
       if (!text || inFlight.current) return;
+
+      // Reply in the language the user actually wrote in, and flip the UI to match so AR/EN never mix.
+      const turnLocale = explicitLocale ?? detectLocale(text) ?? locale;
 
       if (turnLocale !== locale) changeLocale(turnLocale);
       const controller = new AbortController();
@@ -175,25 +179,33 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
         <div className="sticky top-0 z-10">
           {isEmergency && <EmergencyBanner numbers={emergencyNumbers} />}
           {(health === 'error' || health === 'degraded') && <HealthBanner status={health} />}
-          <header className="border-b border-slate-200 bg-white">
+          <header className="border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
             <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
-              <h1 className="text-lg font-semibold">{t.header.title}</h1>
-              <div className="flex items-center gap-2">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 text-2xl text-white shadow-md shadow-blue-600/20">
+                  <LogoIcon />
+                </span>
+                <div className="min-w-0">
+                  <h1 className="truncate text-base font-semibold leading-tight">{t.header.title}</h1>
+                  <p className="truncate text-xs text-slate-500">{t.header.subtitle}</p>
+                </div>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
                 <LocaleToggle onChange={changeLocale} />
                 <button
                   type="button"
                   onClick={newChat}
-                  className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                 >
-                  {t.header.newChat}
+                  <PlusIcon className="text-base" />
+                  <span className="hidden sm:inline">{t.header.newChat}</span>
                 </button>
               </div>
             </div>
-            <p className="bg-slate-100 px-4 py-1 text-center text-xs text-slate-600">{t.header.prototypeNote}</p>
           </header>
         </div>
 
-        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-4">
+        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
           {restoring && <p className="py-8 text-center text-sm text-slate-500">{t.messages.restoring}</p>}
           {!restoring && messages.length === 0 && !sending && (
             <SamplePrompts onPick={(text, l) => void send(text, l)} disabled={sending} />
@@ -206,8 +218,8 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
           />
         </main>
 
-        <footer className="sticky bottom-0 border-t border-slate-200 bg-white">
-          <div className="mx-auto max-w-3xl px-4 pt-3">
+        <footer className="sticky bottom-0 bg-gradient-to-t from-slate-50 via-slate-50/95 to-transparent pt-4">
+          <div className="mx-auto max-w-3xl px-4 pb-3">
             <Composer
               ref={inputRef}
               value={draft}
@@ -216,6 +228,7 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
               disabled={sending || restoring}
               busy={sending}
             />
+            <p className="mt-2 text-center text-[11px] text-slate-400">{t.header.prototypeNote}</p>
           </div>
         </footer>
 

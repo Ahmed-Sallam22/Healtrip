@@ -16,6 +16,17 @@ export function getDictionary(locale: Locale): Dictionary {
 
 export const dirFor = (locale: Locale): 'rtl' | 'ltr' => (locale === 'ar' ? 'rtl' : 'ltr');
 
+const ARABIC_LETTER = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/g;
+const LATIN_LETTER = /[A-Za-z]/g;
+
+/** Language of free text by script: whichever of Arabic/Latin letters dominates; null if neither appears. */
+export function detectLocale(text: string): Locale | null {
+  const arabic = text.match(ARABIC_LETTER)?.length ?? 0;
+  const latin = text.match(LATIN_LETTER)?.length ?? 0;
+  if (arabic === 0 && latin === 0) return null;
+  return arabic >= latin ? 'ar' : 'en';
+}
+
 /** BCP-47 tag used for Intl formatting (dates, numbers, language names). */
 export const intlLocale = (locale: Locale): string => (locale === 'ar' ? 'ar-EG' : 'en-GB');
 

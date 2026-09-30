@@ -8,7 +8,9 @@
     "newChat": "New chat",
     "switchLocale": "العربية",
     "switchLocaleLabel": "Switch language to Arabic",
-    "prototypeNote": "Prototype with fictional data — not medical advice."
+    "prototypeNote": "Prototype with fictional data — not medical advice.",
+    "subtitle": "Find the right care, faster",
+    "prototypeBadge": "Prototype · fictional data"
   },
   "health": {
     "unavailable": "The service is temporarily unavailable. Please try again in a few minutes.",
@@ -23,17 +25,19 @@
     "subtitle": "Describe your symptoms or situation, or try an example:",
     "samples": {
       "chestPain": "Chest pain — cardiologist, ER or second opinion?",
-      "kneeSecondOpinion": "Second opinion on knee surgery (Arabic, Giza)",
+      "kneeSecondOpinion": "Second opinion on knee surgery (Giza)",
       "istanbulCheckup": "Cardiology check-up in Istanbul under $80"
-    }
+    },
+    "autoLanguage": "Replies follow the language you write in"
   },
   "composer": {
     "label": "Your message",
-    "placeholder": "Describe your symptoms or question… (Enter to send, Shift+Enter for a new line)",
+    "placeholder": "Describe your symptoms or question…",
     "send": "Send",
     "sending": "Sending…",
     "counter": "{count} / {max} characters",
-    "tooLong": "Message is too long."
+    "tooLong": "Message is too long.",
+    "hint": "Enter to send · Shift+Enter for a new line"
   },
   "messages": {
     "listLabel": "Conversation",
@@ -74,7 +78,8 @@
     "open24h": "Open 24h",
     "accreditation": "Accreditation",
     "phone": "Phone",
-    "matchReason": "Why this match:"
+    "matchReason": "Why this match:",
+    "feeAmount": "${amount}"
   },
   "citation": {
     "source": "Source:",
