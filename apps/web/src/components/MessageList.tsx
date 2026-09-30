@@ -15,16 +15,47 @@ interface Props {
   onPickQuestion: (question: string) => void;
 }
 
+const PIN_THRESHOLD_PX = 120;
+
+/** Scrolls the page itself (not the list) so the sticky composer never covers the last message. */
+function scrollToBottom() {
+  window.scrollTo({ top: document.documentElement.scrollHeight });
+}
+
 export function MessageList({ messages, pendingTrace, showTrace, onPickQuestion }: Props) {
   const { t } = useI18n();
-  const endRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  /** True while the reader is at the bottom; scrolling up to read older turns releases it. */
+  const pinned = useRef(true);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const onScroll = () => {
+      const doc = document.documentElement;
+      pinned.current = doc.scrollHeight - doc.scrollTop - window.innerHeight < PIN_THRESHOLD_PX;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // A new message or streamed step always brings the conversation end into view.
+  useEffect(() => {
+    pinned.current = true;
+    scrollToBottom();
   }, [messages.length, pendingTrace?.length]);
 
+  // Content can keep growing after it lands (cards, fonts, restored sessions): follow it while pinned.
+  useEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      if (pinned.current) scrollToBottom();
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div role="log" aria-live="polite" aria-label={t.messages.listLabel} aria-busy={pendingTrace !== null}>
+    <div ref={listRef} role="log" aria-live="polite" aria-label={t.messages.listLabel} aria-busy={pendingTrace !== null}>
       <ol className="space-y-5">
         {messages.map((m) =>
           m.role === 'user' ? (
@@ -81,7 +112,6 @@ export function MessageList({ messages, pendingTrace, showTrace, onPickQuestion 
           </li>
         )}
       </ol>
-      <div ref={endRef} />
     </div>
   );
 }
