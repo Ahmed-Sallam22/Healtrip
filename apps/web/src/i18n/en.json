@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "HealTrip Assistant",
+    "description": "Prototype patient decision assistant (fictional data)."
+  },
+  "header": {
+    "title": "HealTrip Assistant",
+    "newChat": "New chat",
+    "switchLocale": "العربية",
+    "switchLocaleLabel": "Switch language to Arabic",
+    "prototypeNote": "Prototype with fictional data — not medical advice."
+  },
+  "health": {
+    "unavailable": "The service is temporarily unavailable. Please try again in a few minutes.",
+    "degraded": "Some parts of the service are degraded. Answers may be limited."
+  },
+  "emergency": {
+    "title": "This may be an emergency. Call emergency services now.",
+    "call": "Call {number}"
+  },
+  "empty": {
+    "title": "How can I help you decide on your next step?",
+    "subtitle": "Describe your symptoms or situation, or try an example:",
+    "samples": {
+      "chestPain": "Chest pain — cardiologist, ER or second opinion?",
+      "kneeSecondOpinion": "Second opinion on knee surgery (Arabic, Giza)",
+      "istanbulCheckup": "Cardiology check-up in Istanbul under $80"
+    }
+  },
+  "composer": {
+    "label": "Your message",
+    "placeholder": "Describe your symptoms or question… (Enter to send, Shift+Enter for a new line)",
+    "send": "Send",
+    "sending": "Sending…",
+    "counter": "{count} / {max} characters",
+    "tooLong": "Message is too long."
+  },
+  "messages": {
+    "listLabel": "Conversation",
+    "you": "You",
+    "assistant": "Assistant",
+    "why": "Why:",
+    "clarifyingTitle": "To help further, please answer:",
+    "clarifyingHint": "Click a question to answer it in the message box.",
+    "providersTitle": "Suggested providers",
+    "sourcesTitle": "Sources",
+    "restoring": "Restoring your previous conversation…",
+    "thinking": "Working on your answer…"
+  },
+  "source": {
+    "triage": "Safety rules",
+    "fallback": "Safe fallback"
+  },
+  "nextStep": {
+    "EMERGENCY_NOW": "Emergency — act now",
+    "URGENT_CARE_24H": "Urgent care within 24h",
+    "BOOK_SPECIALIST": "Book a specialist",
+    "SECOND_OPINION": "Get a second opinion",
+    "GENERAL_PRACTITIONER": "See a general practitioner",
+    "SELF_CARE_MONITOR": "Self-care and monitor"
+  },
+  "provider": {
+    "doctor": "Doctor",
+    "hospital": "Hospital",
+    "fee": "Consultation fee",
+    "rating": "Rating",
+    "languages": "Languages",
+    "experience": "{years} years experience",
+    "nextSlot": "Next available",
+    "noSlot": "No open slots listed",
+    "secondOpinion": "Second opinion",
+    "telemedicine": "Telemedicine",
+    "emergency": "Emergency dept.",
+    "open24h": "Open 24h",
+    "accreditation": "Accreditation",
+    "phone": "Phone",
+    "matchReason": "Why this match:"
+  },
+  "citation": {
+    "source": "Source:",
+    "doctor_bio": "Doctor bio",
+    "hospital_profile": "Hospital profile",
+    "patient_guide": "Patient guide"
+  },
+  "trace": {
+    "panelTitle": "Agent trace",
+    "steps": "{count} steps",
+    "promptVersion": "Prompt version",
+    "colStep": "#",
+    "colType": "Type",
+    "colName": "Name",
+    "colStatus": "Status",
+    "colDuration": "ms",
+    "colDetails": "Details",
+    "ok": "ok",
+    "error": "error",
+    "args": "args",
+    "summary": "summary",
+    "names": {
+      "map_symptoms_to_specialty": "Matching symptoms to a specialty…",
+      "search_providers": "Searching doctors and hospitals…",
+      "find_emergency_hospitals": "Finding emergency hospitals…",
+      "get_doctor_availability": "Checking doctor availability…",
+      "search_knowledge_base": "Searching the knowledge base…",
+      "submit_recommendation": "Preparing the recommendation…",
+      "ask_clarifying_questions": "Preparing follow-up questions…"
+    },
+    "types": {
+      "guardrail": "Checking safety guardrails…",
+      "triage": "Checking red flags…",
+      "llm": "Thinking…",
+      "tool": "Running a tool…",
+      "validation": "Validating the answer…",
+      "repair": "Repairing the answer…",
+      "fallback": "Preparing a safe answer…",
+      "info": "Working…"
+    }
+  },
+  "errors": {
+    "network": "Could not reach the service. Check your connection and try again.",
+    "sessionExpired": "Your previous conversation could not be restored. Starting a new chat.",
+    "requestId": "Request ID: {id}",
+    "dismiss": "Dismiss"
+  }
+}

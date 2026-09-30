@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "مساعد HealTrip",
+    "description": "نموذج أولي لمساعد اتخاذ القرار للمرضى (بيانات وهمية)."
+  },
+  "header": {
+    "title": "مساعد HealTrip",
+    "newChat": "محادثة جديدة",
+    "switchLocale": "English",
+    "switchLocaleLabel": "تغيير اللغة إلى الإنجليزية",
+    "prototypeNote": "نموذج أولي ببيانات وهمية — ليس نصيحة طبية."
+  },
+  "health": {
+    "unavailable": "الخدمة غير متاحة مؤقتًا. يرجى المحاولة مرة أخرى بعد بضع دقائق.",
+    "degraded": "بعض أجزاء الخدمة تعمل بشكل محدود. قد تكون الإجابات محدودة."
+  },
+  "emergency": {
+    "title": "قد تكون هذه حالة طارئة. اتصل بخدمات الطوارئ الآن.",
+    "call": "اتصل بـ {number}"
+  },
+  "empty": {
+    "title": "كيف يمكنني مساعدتك في تحديد خطوتك التالية؟",
+    "subtitle": "صف أعراضك أو حالتك، أو جرّب أحد الأمثلة:",
+    "samples": {
+      "chestPain": "ألم في الصدر — طبيب قلب أم طوارئ أم رأي ثانٍ؟ (بالإنجليزية)",
+      "kneeSecondOpinion": "رأي ثانٍ في عملية الركبة (الجيزة)",
+      "istanbulCheckup": "فحص قلب في إسطنبول بأقل من 80 دولارًا (بالإنجليزية)"
+    }
+  },
+  "composer": {
+    "label": "رسالتك",
+    "placeholder": "صف أعراضك أو سؤالك… (Enter للإرسال، Shift+Enter لسطر جديد)",
+    "send": "إرسال",
+    "sending": "جارٍ الإرسال…",
+    "counter": "{count} / {max} حرف",
+    "tooLong": "الرسالة طويلة جدًا."
+  },
+  "messages": {
+    "listLabel": "المحادثة",
+    "you": "أنت",
+    "assistant": "المساعد",
+    "why": "السبب:",
+    "clarifyingTitle": "لمساعدتك بشكل أفضل، يرجى الإجابة:",
+    "clarifyingHint": "انقر على السؤال للإجابة عنه في مربع الرسالة.",
+    "providersTitle": "مقدمو خدمة مقترحون",
+    "sourcesTitle": "المصادر",
+    "restoring": "جارٍ استعادة محادثتك السابقة…",
+    "thinking": "جارٍ إعداد إجابتك…"
+  },
+  "source": {
+    "triage": "قواعد السلامة",
+    "fallback": "إجابة احتياطية آمنة"
+  },
+  "nextStep": {
+    "EMERGENCY_NOW": "طوارئ — تصرّف الآن",
+    "URGENT_CARE_24H": "رعاية عاجلة خلال 24 ساعة",
+    "BOOK_SPECIALIST": "احجز لدى طبيب متخصص",
+    "SECOND_OPINION": "احصل على رأي طبي ثانٍ",
+    "GENERAL_PRACTITIONER": "راجع طبيبًا عامًا",
+    "SELF_CARE_MONITOR": "رعاية ذاتية ومتابعة"
+  },
+  "provider": {
+    "doctor": "طبيب",
+    "hospital": "مستشفى",
+    "fee": "رسوم الاستشارة",
+    "rating": "التقييم",
+    "languages": "اللغات",
+    "experience": "خبرة {years} سنة",
+    "nextSlot": "أقرب موعد متاح",
+    "noSlot": "لا توجد مواعيد متاحة مدرجة",
+    "secondOpinion": "رأي ثانٍ",
+    "telemedicine": "استشارة عن بُعد",
+    "emergency": "قسم طوارئ",
+    "open24h": "يعمل 24 ساعة",
+    "accreditation": "الاعتماد",
+    "phone": "الهاتف",
+    "matchReason": "سبب الترشيح:"
+  },
+  "citation": {
+    "source": "المصدر:",
+    "doctor_bio": "نبذة عن الطبيب",
+    "hospital_profile": "ملف المستشفى",
+    "patient_guide": "دليل المريض"
+  },
+  "trace": {
+    "panelTitle": "سجل خطوات الوكيل",
+    "steps": "{count} خطوات",
+    "promptVersion": "إصدار التعليمات",
+    "colStep": "#",
+    "colType": "النوع",
+    "colName": "الاسم",
+    "colStatus": "الحالة",
+    "colDuration": "مللي ثانية",
+    "colDetails": "التفاصيل",
+    "ok": "نجاح",
+    "error": "خطأ",
+    "args": "المدخلات",
+    "summary": "الملخص",
+    "names": {
+      "map_symptoms_to_specialty": "جارٍ ربط الأعراض بالتخصص المناسب…",
+      "search_providers": "جارٍ البحث عن الأطباء والمستشفيات…",
+      "find_emergency_hospitals": "جارٍ البحث عن مستشفيات الطوارئ…",
+      "get_doctor_availability": "جارٍ التحقق من مواعيد الطبيب…",
+      "search_knowledge_base": "جارٍ البحث في قاعدة المعرفة…",
+      "submit_recommendation": "جارٍ إعداد التوصية…",
+      "ask_clarifying_questions": "جارٍ إعداد أسئلة المتابعة…"
+    },
+    "types": {
+      "guardrail": "جارٍ التحقق من ضوابط السلامة…",
+      "triage": "جارٍ التحقق من علامات الخطر…",
+      "llm": "جارٍ التفكير…",
+      "tool": "جارٍ تشغيل أداة…",
+      "validation": "جارٍ التحقق من الإجابة…",
+      "repair": "جارٍ إصلاح الإجابة…",
+      "fallback": "جارٍ إعداد إجابة آمنة…",
+      "info": "جارٍ العمل…"
+    }
+  },
+  "errors": {
+    "network": "تعذّر الوصول إلى الخدمة. تحقق من اتصالك وحاول مرة أخرى.",
+    "sessionExpired": "تعذّرت استعادة محادثتك السابقة. سيتم بدء محادثة جديدة.",
+    "requestId": "معرّف الطلب: {id}",
+    "dismiss": "إغلاق"
+  }
+}

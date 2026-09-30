@@ -1,0 +1,11 @@
+# BuildKit uses <Dockerfile>.dockerignore when present (context = repo root).
+**/node_modules
+**/.next
+**/dist
+**/.env
+**/.env.local
+**/*.tsbuildinfo
+.git
+apps/rag
+data
+docs
