@@ -27,7 +27,7 @@ export const SearchProvidersArgsSchema = z
     needsEmergency: z.boolean().optional().describe('Only hospitals with an emergency department'),
     secondOpinion: z.boolean().optional().describe('Only doctors offering second opinions'),
     telemedicine: z.boolean().optional().describe('Only doctors offering telemedicine'),
-    limit: z.number().int().positive().max(50).optional().describe('Max results (clamped to 5)'),
+    limit: z.number().int().positive().max(100).optional().describe('Max results (clamped to 5)'),
   })
   .strict();
 
@@ -39,7 +39,7 @@ export const GetDoctorAvailabilityArgsSchema = z
   .object({
     doctorId: idSchema,
     fromDate: z.string().date().optional().describe('YYYY-MM-DD, defaults to today'),
-    days: z.number().int().positive().max(60).optional().describe('Window in days (clamped to 14)'),
+    days: z.number().int().positive().max(365).optional().describe('Window in days (clamped to 14)'),
   })
   .strict();
 
@@ -48,7 +48,7 @@ export const SearchKnowledgeBaseArgsSchema = z
     query: z.string().trim().min(3).max(500),
     locale: LocaleSchema,
     sourceTypes: z.array(SourceTypeSchema).max(3).optional(),
-    topK: z.number().int().positive().max(20).optional().describe('Max chunks (clamped to 5)'),
+    topK: z.number().int().positive().max(100).optional().describe('Max chunks (clamped to 5)'),
   })
   .strict();
 
