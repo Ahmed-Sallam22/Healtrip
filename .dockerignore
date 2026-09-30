@@ -1,0 +1,11 @@
+# Fallback for builders without per-Dockerfile ignore support.
+**/node_modules
+**/.next
+**/dist
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.env
+**/*.tsbuildinfo
+.git
+docs/screenshots

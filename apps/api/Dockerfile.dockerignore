@@ -1,0 +1,9 @@
+**/node_modules
+**/.next
+**/dist
+**/.env
+**/*.tsbuildinfo
+.git
+apps/rag
+apps/web/src
+docs
