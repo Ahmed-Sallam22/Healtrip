@@ -65,20 +65,30 @@ export function AssistantMessage({ content, response, showTrace, onPickQuestion 
             <p className="mt-0.5 text-xs text-slate-400">{t.messages.clarifyingHint}</p>
           </div>
           <ul className="grid gap-2">
-            {response.clarifyingQuestions.map((q) => (
-              <li key={q}>
-                <button
-                  type="button"
-                  onClick={() => onPickQuestion(q)}
-                  className="group flex w-full items-center gap-3 rounded-2xl border border-blue-100 bg-blue-50/60 px-4 py-2.5 text-start text-sm text-blue-950 transition hover:border-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                >
-                  <span className="flex-1" dir="auto" lang={detectLocale(q) ?? undefined}>
-                    {q}
-                  </span>
-                  <ArrowIcon className="shrink-0 text-base text-blue-400 transition group-hover:translate-x-0.5 group-hover:text-blue-600 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
-                </button>
-              </li>
-            ))}
+            {response.clarifyingQuestions.map((q) => {
+              // Lay each chip out in the question's own direction so the arrow sits at its end and points forward.
+              const qLang = detectLocale(q);
+              const qDir = qLang === 'ar' ? 'rtl' : qLang === 'en' ? 'ltr' : undefined;
+              return (
+                <li key={q}>
+                  <button
+                    type="button"
+                    dir={qDir}
+                    onClick={() => onPickQuestion(q)}
+                    className="group flex w-full items-center gap-3 rounded-2xl border border-blue-100 bg-blue-50/60 px-4 py-2.5 text-start text-sm text-blue-950 transition hover:border-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  >
+                    <span className="flex-1" lang={qLang ?? undefined}>
+                      {q}
+                    </span>
+                    <ArrowIcon
+                      className={`shrink-0 text-base text-blue-400 transition group-hover:text-blue-600 ${
+                        qDir === 'rtl' ? '-scale-x-100 group-hover:-translate-x-0.5' : 'group-hover:translate-x-0.5'
+                      }`}
+                    />
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </section>
       )}

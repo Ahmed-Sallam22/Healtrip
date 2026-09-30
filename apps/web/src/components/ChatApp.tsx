@@ -82,6 +82,10 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
         .then((session) => {
           setSessionId(session.id);
           setMessages(sessionToMessages(session));
+          // Reopen the conversation in the language it was held in, so restored turns don't mix AR/EN.
+          const lastUser = [...session.messages].reverse().find((m) => m.role === 'user');
+          const sessionLocale = lastUser ? detectLocale(lastUser.content) : null;
+          if (sessionLocale) changeLocale(sessionLocale);
         })
         .catch((err: unknown) => {
           if (isAbortError(err)) return;
@@ -94,7 +98,7 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
         });
     }
     return () => controller.abort();
-  }, [showError]);
+  }, [showError, changeLocale]);
 
   const send = useCallback(
     async (rawText: string, explicitLocale?: Locale) => {
@@ -208,7 +212,7 @@ export function ChatApp({ showTrace }: { showTrace: boolean }) {
         <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
           {restoring && <p className="py-8 text-center text-sm text-slate-500">{t.messages.restoring}</p>}
           {!restoring && messages.length === 0 && !sending && (
-            <SamplePrompts onPick={(text, l) => void send(text, l)} disabled={sending} />
+            <SamplePrompts onPick={(text) => void send(text, locale)} disabled={sending} />
           )}
           <MessageList
             messages={messages}

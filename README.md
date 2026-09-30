@@ -73,6 +73,7 @@ pnpm dev                              # NestJS on :4000 + Next.js on :3000
 | **Mock (default)** | `LLM_PROVIDER=mock` | Deterministic scripted policy ([mock.provider.ts](apps/api/src/agent/llm/mock.provider.ts)). It drives the *same* orchestrator, tools and validator as a real model. It's used by the demo and all tests. |
 | Claude | `LLM_PROVIDER=anthropic`, `ANTHROPIC_API_KEY=…` (`ANTHROPIC_MODEL` default `claude-opus-5-5`, `ANTHROPIC_EFFORT=low`) | Native tool use. Server-side refusal fallback is enabled. |
 | OpenAI | `LLM_PROVIDER=openai`, `OPENAI_API_KEY=…` (`OPENAI_MODEL` default `gpt-4.1-mini`) | Function calling with `tool_choice: required`, temperature 0.1 |
+| Any OpenAI-compatible API | `LLM_PROVIDER=openai` + `OPENAI_BASE_URL`, `OPENAI_MODEL`, `OPENAI_API_KEY` | Gemini, Groq, OpenRouter, DeepSeek, or a local Ollama / LM Studio server (key optional). Set `OPENAI_TOOL_CHOICE=auto` for servers that reject forced tool calls. Examples in [.env.example](.env.example). |
 | Embeddings | `EMBEDDINGS_PROVIDER=mock \| local \| openai` | `local` = multilingual `paraphrase-multilingual-MiniLM-L12-v2` (install `requirements-local.txt`). All providers produce 384-dim vectors. |
 
 The env is validated at boot ([env.ts](apps/api/src/config/env.ts)). For example, `LLM_PROVIDER=anthropic` without a key fails fast with a clear message.

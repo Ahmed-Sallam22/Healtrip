@@ -1,13 +1,26 @@
 import OpenAI from 'openai';
 import { LlmError, type LlmMessage, type LlmProvider, type LlmRequest, type LlmResponse } from './llm.types';
 
-/** OpenAI function calling. tool_choice "required" forces a tool call every step. */
-export class OpenAIProvider implements LlmProvider {
-  readonly name = 'openai';
-  private readonly client: OpenAI;
+export interface OpenAIProviderOptions {
+  /** OpenAI-compatible endpoint (Gemini, Groq, OpenRouter, DeepSeek, Ollama…). Defaults to api.openai.com. */
+  baseURL?: string;
+  toolChoice?: 'required' | 'auto';
+}
 
-  constructor(apiKey: string, readonly model: string) {
-    this.client = new OpenAI({ apiKey, maxRetries: 0 });
+/**
+ * OpenAI function calling — also serves any OpenAI-compatible API via `baseURL`.
+ * tool_choice "required" forces a tool call every step; the orchestrator still enforces terminal tools under "auto".
+ */
+export class OpenAIProvider implements LlmProvider {
+  readonly name: string;
+  private readonly client: OpenAI;
+  private readonly toolChoice: 'required' | 'auto';
+
+  constructor(apiKey: string, readonly model: string, opts: OpenAIProviderOptions = {}) {
+    this.client = new OpenAI({ apiKey, baseURL: opts.baseURL, maxRetries: 0 });
+    this.toolChoice = opts.toolChoice ?? 'required';
+    // Show the real backend in traces/health (e.g. "openai:generativelanguage.googleapis.com").
+    this.name = opts.baseURL ? `openai:${hostOf(opts.baseURL)}` : 'openai';
   }
 
   async complete(req: LlmRequest): Promise<LlmResponse> {
@@ -19,7 +32,7 @@ export class OpenAIProvider implements LlmProvider {
           max_tokens: req.maxTokens,
           messages: [{ role: 'system', content: req.system }, ...toOpenAiMessages(req.messages)],
           tools: req.tools.map((t) => ({ type: 'function' as const, function: { name: t.name, description: t.description, parameters: t.parameters } })),
-          tool_choice: 'required',
+          tool_choice: this.toolChoice,
         },
         { signal: req.signal },
       );
@@ -39,6 +52,14 @@ export class OpenAIProvider implements LlmProvider {
       }
       throw new LlmError(`OpenAI call failed: ${(err as Error).message}`, false);
     }
+  }
+}
+
+function hostOf(url: string): string {
+  try {
+    return new URL(url).host;
+  } catch {
+    return 'custom';
   }
 }
 

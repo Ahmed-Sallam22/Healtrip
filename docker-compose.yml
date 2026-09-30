@@ -58,6 +58,9 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4.1-mini}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_TOOL_CHOICE: ${OPENAI_TOOL_CHOICE:-required}
       RAG_URL: http://rag:8001
       RAG_INTERNAL_TOKEN: ${RAG_INTERNAL_TOKEN:-compose-local-token}
       EXPOSE_TRACE: "true"

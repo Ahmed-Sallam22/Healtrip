@@ -28,7 +28,12 @@
       "kneeSecondOpinion": "Second opinion on knee surgery (Giza)",
       "istanbulCheckup": "Cardiology check-up in Istanbul under $80"
     },
-    "autoLanguage": "Replies follow the language you write in"
+    "autoLanguage": "Replies follow the language you write in",
+    "sampleTexts": {
+      "chestPain": "I have chest pain and I'm not sure whether I should see a cardiologist, go to the ER, or seek a second opinion.",
+      "kneeSecondOpinion": "A doctor advised me to have knee surgery, and I want a second medical opinion before I decide. I'm in Giza.",
+      "istanbulCheckup": "I'm travelling to Istanbul next month and need a cardiologist check-up. My budget is under $80 and I speak English."
+    }
   },
   "composer": {
     "label": "Your message",

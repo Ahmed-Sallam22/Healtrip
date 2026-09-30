@@ -19,6 +19,10 @@ export const EnvSchema = z
     ANTHROPIC_EFFORT: z.enum(['low', 'medium', 'high']).default('low'),
     OPENAI_API_KEY: z.string().optional(),
     OPENAI_MODEL: z.string().default('gpt-4.1-mini'),
+    /** Any OpenAI-compatible endpoint: Gemini, Groq, OpenRouter, DeepSeek, Ollama, LM Studio… Unset = api.openai.com. */
+    OPENAI_BASE_URL: z.string().url().optional(),
+    /** "required" forces a tool call each step; "auto" for servers/models that reject it (e.g. some local models). */
+    OPENAI_TOOL_CHOICE: z.enum(['required', 'auto']).default('required'),
     LLM_TEMPERATURE: z.coerce.number().min(0).max(0.2).default(0.1),
     LLM_CALL_TIMEOUT_MS: z.coerce.number().int().positive().default(15000),
 
@@ -37,8 +41,9 @@ export const EnvSchema = z
   .superRefine((env, ctx) => {
     if (env.LLM_PROVIDER === 'anthropic' && !env.ANTHROPIC_API_KEY)
       ctx.addIssue({ code: 'custom', path: ['ANTHROPIC_API_KEY'], message: 'required when LLM_PROVIDER=anthropic' });
-    if (env.LLM_PROVIDER === 'openai' && !env.OPENAI_API_KEY)
-      ctx.addIssue({ code: 'custom', path: ['OPENAI_API_KEY'], message: 'required when LLM_PROVIDER=openai' });
+    // A custom base URL may be a keyless local server (Ollama, LM Studio).
+    if (env.LLM_PROVIDER === 'openai' && !env.OPENAI_API_KEY && !env.OPENAI_BASE_URL)
+      ctx.addIssue({ code: 'custom', path: ['OPENAI_API_KEY'], message: 'required when LLM_PROVIDER=openai (unless OPENAI_BASE_URL points to a keyless server)' });
     if (env.NODE_ENV === 'production' && env.RAG_INTERNAL_TOKEN === 'dev-internal-token')
       ctx.addIssue({ code: 'custom', path: ['RAG_INTERNAL_TOKEN'], message: 'must be set in production' });
   });
