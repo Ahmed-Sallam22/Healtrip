@@ -79,9 +79,15 @@ The env is validated at boot ([env.ts](apps/api/src/config/env.ts)). For example
 
 ### Quality gates
 ```bash
-pnpm lint && pnpm typecheck && pnpm test     # ESLint, tsc (shared/api/web), Jest (76 tests)
+pnpm lint && pnpm typecheck && pnpm test     # ESLint, tsc (shared/api/web), Jest (84 tests)
 pnpm test:rag                                # pytest (43 tests; DB tests use healtrip_test)
+pnpm build                                   # shared → api (nest) + web (next standalone)
 ```
+CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs four checks:
+- lint, typecheck, test and build;
+- pytest against a real `pgvector/pgvector:pg16` service;
+- `docker compose build` + `up`;
+- a smoke test: health is `ok`, a red-flag message returns `EMERGENCY_NOW`, and the stents question cites a real bio.
 
 ---
 
@@ -378,6 +384,7 @@ Full ADRs: [docs/decisions.md](docs/decisions.md).
 | `tools.spec` | Schema generation, INVALID_ARGS / UNKNOWN_TOOL / INTERNAL_ERROR, clamping, filters, out-of-scope city, RAG statuses |
 | `grounding.validator.spec` | **Fake provider ids rejected**, invented prices, ratings and names, wrong cities, citation rules, SECOND_OPINION check, triage floor |
 | `agent.orchestrator.spec` | End-to-end loop with the mock: clarify → book, second opinion (AR), budget, hybrid RAG, KB answer, no-info, RAG down, injection, fake-id repair/fallback, free text, max steps, LLM retry |
+| `test/app.e2e.spec` | Boots the **real Nest app** (pipes, exception filter, throttler, helmet, SSE, DI) with in-memory DB/RAG: emergency, session round-trip, validation and 404 envelopes, SSE framing, health ok/degraded/503, 429 |
 | `chat.service.spec` | The emergency path never calls the LLM; PII is never stored; memory persists across turns; Arabic output; a lying model's text never reaches the patient |
 | `apps/rag/tests` (pytest) | Chunking (EN/AR), mock embeddings, idempotent ingestion (unchanged/updated/deleted/orphans), `/search` auth, EN stents + AR second-opinion citations, irrelevant queries return nothing |
 

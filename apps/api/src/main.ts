@@ -2,24 +2,16 @@ import './config/load-dotenv';
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import helmet from 'helmet';
 import { Logger } from 'nestjs-pino';
 import { AppModule } from './app.module';
+import { configureApp } from './app.setup';
 import { loadEnv } from './config/env';
 
 async function bootstrap() {
   const env = loadEnv(); // fail fast on invalid config
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(Logger));
-  app.setGlobalPrefix('api');
-  app.use(helmet());
-  app.enableCors({
-    origin: env.CORS_ORIGINS.split(',').map((o) => o.trim()),
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['content-type', 'x-request-id'],
-    exposedHeaders: ['x-request-id'],
-  });
-  app.getHttpAdapter().getInstance().set('trust proxy', 1); // correct client IPs for rate limiting behind a proxy
+  configureApp(app, env);
   app.enableShutdownHooks();
 
   const doc = SwaggerModule.createDocument(
