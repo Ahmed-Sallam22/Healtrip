@@ -3,7 +3,7 @@ import type { KnowledgeChunk, Locale, SourceType } from '@healtrip/shared';
 import { ENV, type Env } from '../config/env';
 
 export class RagUnavailableError extends Error {
-  constructor(message: string, readonly cause?: unknown) {
+  constructor(message: string, override readonly cause?: unknown) {
     super(message);
   }
 }

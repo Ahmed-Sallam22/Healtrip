@@ -7,7 +7,6 @@ import { searchKnowledgeBaseTool } from './handlers/search-knowledge-base.tool';
 import { searchProvidersTool } from './handlers/search-providers.tool';
 import { askClarifyingQuestionsTool, submitRecommendationTool } from './handlers/terminal.tools';
 import { ToolRegistry } from './tool-registry';
-import type { ToolDefinition } from './tool.types';
 
 export function buildToolRegistry(repo: ProvidersRepository, rag: Pick<RagClient, 'search'>): ToolRegistry {
   return new ToolRegistry([
@@ -18,5 +17,5 @@ export function buildToolRegistry(repo: ProvidersRepository, rag: Pick<RagClient
     searchKnowledgeBaseTool(rag as RagClient),
     submitRecommendationTool,
     askClarifyingQuestionsTool,
-  ] as ToolDefinition[]);
+  ]);
 }

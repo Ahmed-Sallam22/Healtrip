@@ -1,7 +1,7 @@
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import type { ToolResult } from '@healtrip/shared';
 import type { LlmToolSpec } from '../agent/llm/llm.types';
-import { fail, type ToolContext, type ToolDefinition, type ToolOutput } from './tool.types';
+import { type AnyToolDefinition, fail, type ToolContext, type ToolOutput } from './tool.types';
 
 export interface ToolExecution {
   name: string;
@@ -16,13 +16,13 @@ export interface ToolExecution {
  * handler exceptions → INTERNAL_ERROR. Nothing here ever throws back into the agent loop.
  */
 export class ToolRegistry {
-  private readonly tools = new Map<string, ToolDefinition>();
+  private readonly tools = new Map<string, AnyToolDefinition>();
 
-  constructor(definitions: ToolDefinition[]) {
+  constructor(definitions: AnyToolDefinition[]) {
     for (const d of definitions) this.tools.set(d.name, d);
   }
 
-  get(name: string): ToolDefinition | undefined {
+  get(name: string): AnyToolDefinition | undefined {
     return this.tools.get(name);
   }
 
@@ -31,7 +31,7 @@ export class ToolRegistry {
   }
 
   /** Provider-neutral tool specs (JSON Schema generated from the same Zod schemas used to validate). */
-  specs(filter: (d: ToolDefinition) => boolean = () => true): LlmToolSpec[] {
+  specs(filter: (d: AnyToolDefinition) => boolean = () => true): LlmToolSpec[] {
     return [...this.tools.values()].filter(filter).map((d) => ({
       name: d.name,
       description: d.description,
@@ -54,7 +54,7 @@ export class ToolRegistry {
     const parsed = def.schema.safeParse(rawArgs ?? {});
     if (!parsed.success) {
       return done(
-        fail('INVALID_ARGS', 'Arguments do not match the tool schema.', parsed.error.issues.map((i) => ({ path: i.path.join('.'), message: i.message }))),
+        fail('INVALID_ARGS', 'Arguments do not match the tool schema.', parsed.error.issues.map((i: { path: (string | number)[]; message: string }) => ({ path: i.path.join('.'), message: i.message }))),
       );
     }
     try {
@@ -65,8 +65,8 @@ export class ToolRegistry {
   }
 }
 
-const schemaCache = new WeakMap<ToolDefinition, Record<string, unknown>>();
-function toJsonSchema(def: ToolDefinition): Record<string, unknown> {
+const schemaCache = new WeakMap<AnyToolDefinition, Record<string, unknown>>();
+function toJsonSchema(def: AnyToolDefinition): Record<string, unknown> {
   let schema = schemaCache.get(def);
   if (!schema) {
     const { $schema: _ignored, ...rest } = zodToJsonSchema(def.schema, { target: 'jsonSchema7', $refStrategy: 'none' }) as Record<string, unknown>;

@@ -42,3 +42,7 @@ const failResult = (
   message: string,
   details?: unknown,
 ) => ({ ok: false as const, error: { code, message, details } });
+
+/** Heterogeneous registry entry (handler arg types differ per tool; each is validated by its own schema). */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AnyToolDefinition = ToolDefinition<any>;
