@@ -1,0 +1,3 @@
+-r requirements.txt
+# Optional, heavy (pulls torch). Only needed for EMBEDDINGS_PROVIDER=local.
+sentence-transformers>=3.3,<6

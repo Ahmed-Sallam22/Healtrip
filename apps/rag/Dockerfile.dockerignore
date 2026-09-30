@@ -1,0 +1,8 @@
+# Used by BuildKit when building with -f apps/rag/Dockerfile (context = repo root).
+**
+!apps/rag/requirements.txt
+!apps/rag/app/**
+!apps/rag/data/kb/**
+!data/seed/**
+**/__pycache__
+**/*.pyc
