@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+/** Compose passes unset vars as "" (e.g. `${OPENAI_BASE_URL:-}`); treat that as not set. */
+const optionalUrl = z.preprocess((v) => (v === '' ? undefined : v), z.string().url().optional());
+
 const bool = z
   .enum(['true', 'false', '1', '0'])
   .transform((v) => v === 'true' || v === '1');
@@ -20,7 +23,7 @@ export const EnvSchema = z
     OPENAI_API_KEY: z.string().optional(),
     OPENAI_MODEL: z.string().default('gpt-4.1-mini'),
     /** Any OpenAI-compatible endpoint: Gemini, Groq, OpenRouter, DeepSeek, Ollama, LM Studio… Unset = api.openai.com. */
-    OPENAI_BASE_URL: z.string().url().optional(),
+    OPENAI_BASE_URL: optionalUrl,
     /** "required" forces a tool call each step; "auto" for servers/models that reject it (e.g. some local models). */
     OPENAI_TOOL_CHOICE: z.enum(['required', 'auto']).default('required'),
     LLM_TEMPERATURE: z.coerce.number().min(0).max(0.2).default(0.1),
