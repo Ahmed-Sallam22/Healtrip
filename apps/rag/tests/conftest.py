@@ -15,14 +15,15 @@ from app.embeddings.mock import MockEmbeddings
 from app.models import SCHEMA
 
 TEST_DB_URL = os.environ.get(
-    "TEST_RAG_DATABASE_URL", "postgresql://ahmed@localhost:5432/healtrip_test"
+    "TEST_RAG_DATABASE_URL", "postgresql://localhost:5432/healtrip_test"
 )
 TEST_TOKEN = "test-internal-token"
 
 
 @pytest.fixture(scope="session")
 def settings() -> Settings:
-    return Settings(
+    return Settings(  # _env_file=None: tests never read a developer .env
+        _env_file=None,
         app_env="test",
         rag_database_url=TEST_DB_URL,
         rag_internal_token=TEST_TOKEN,

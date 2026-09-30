@@ -48,7 +48,11 @@ def normalize_database_url(url: str) -> str:
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=None, extra="ignore", case_sensitive=False)
+    # Local dev: read the repo-root .env (shared with the API) and an optional apps/rag/.env.
+    # Real environment variables always take precedence; in containers no file exists.
+    model_config = SettingsConfigDict(
+        env_file=(REPO_ROOT / ".env", RAG_ROOT / ".env"), extra="ignore", case_sensitive=False
+    )
 
     app_env: str = "development"
     log_level: str = "INFO"
