@@ -22,6 +22,17 @@ describe('extractFacts', () => {
     expect(extractFacts('صداع من أسبوعين').durationDays).toBe(14);
   });
 
+  it('treats a second opinion mentioned as an option (while unsure) as NOT a request', () => {
+    const f = extractFacts("I have chest pain and I'm not sure whether I should see a cardiologist, go to the ER, or seek a second opinion.", KEYWORDS);
+    expect(f.wantsSecondOpinion).toBeUndefined();
+    expect(extractFacts('I already have a diagnosis and want a second opinion').wantsSecondOpinion).toBe(true);
+  });
+
+  it('ignores negated symptoms', () => {
+    const f = extractFacts('chest pain for 2 weeks, no shortness of breath', [...KEYWORDS, 'shortness of breath']);
+    expect(f.symptoms).toEqual(['chest pain']);
+  });
+
   it('detects Istanbul + budget', () => {
     expect(extractFacts("I'm travelling to Istanbul, my budget is under $80")).toMatchObject({ city: 'Istanbul', country: 'TR', budgetUsd: 80 });
   });

@@ -61,6 +61,8 @@ describe('GroundingValidator', () => {
     expect(validator.validateRecommendation({ ...base, message: 'I recommend Dr. House.' }, evidence(), noFloor).ok).toBe(false);
     expect(validator.validateRecommendation({ ...base, message: 'أنصحك بالدكتور مجدي يعقوب' }, evidence(), noFloor).ok).toBe(false);
     expect(validator.validateRecommendation({ ...base, message: 'أنصحك بالدكتور كريم فوزي' }, evidence(), noFloor).ok).toBe(true);
+    // words ending in "د." and generic phrases are not doctor names
+    expect(validator.validateRecommendation({ ...base, message: 'راجع الطبيب بعد. سيحدد الدكتور المعالج الخطة.' }, evidence(), noFloor).ok).toBe(true);
   });
 
   it('rejects a matchReason whose city contradicts the DB record', () => {

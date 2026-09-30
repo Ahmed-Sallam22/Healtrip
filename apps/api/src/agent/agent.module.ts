@@ -16,6 +16,6 @@ import { LLM_PROVIDER } from './llm/llm.types';
     GroundingValidator,
     AgentOrchestrator,
   ],
-  exports: [AgentOrchestrator, ToolsModule],
+  exports: [AgentOrchestrator, ToolsModule, LLM_PROVIDER],
 })
 export class AgentModule {}

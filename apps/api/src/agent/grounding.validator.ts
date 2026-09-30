@@ -51,7 +51,9 @@ export interface ValidationResult<T> {
 const MONEY = /(?:\$|usd\s?|us\$)\s?(\d+(?:[.,]\d+)?)|(\d+(?:[.,]\d+)?)\s?(?:usd|us dollars?|dollars?|\$|دولار)/gi;
 const RATING = /\brated\s+(\d(?:\.\d)?)|(\d\.\d)\s*(?:\/\s*5|stars?|out of 5|rating|نجوم|تقييم)/gi;
 const EN_DOCTOR_NAME = /\b(?:Dr|Doctor)\.?\s+([A-Z][\p{L}'-]+)/gu;
-const AR_DOCTOR_NAME = /(?:د\.|دكتور[ةه]?|الدكتور[ةه]?)\s*([ء-ي]{2,})/gu;
+// "د." / "دكتور" / "الدكتور" / "بالدكتور" at a word start, followed by the name token.
+const AR_DOCTOR_NAME = /(?<![\u0621-\u064A])(?:د\.\s*|(?:[وبل]?ال|[وبل])?دكتور[ةه]?\s+)([\u0621-\u064A]{2,})/gu;
+const AR_NOT_A_NAME = new Set(['المعالج', 'المختص', 'المناسب', 'الخاص', 'المتابع', 'متخصص', 'مختص']);
 
 /**
  * GroundingValidator — the last line of defence against hallucinated providers or facts.
@@ -59,8 +61,8 @@ const AR_DOCTOR_NAME = /(?:د\.|دكتور[ةه]?|الدكتور[ةه]?)\s*([ء-
  * Checks a terminal tool call against this turn's TurnEvidence:
  *  1. schema (constrained nextStep enum, disclaimerShown, sizes)
  *  2. every providerId was returned by a tool this turn
- *  3. every citation chunkId was returned by search_knowledge_base this turn, and doctor/hospital
- *     chunks are only used alongside that provider's DB record
+ *  3. every citation chunkId was returned by search_knowledge_base this turn, and doctor_bio
+ *     chunks are only used alongside that doctor's DB record (included in providers)
  *  4. claims in free text (prices, ratings, doctor names, cities) match DB values from evidence
  *  5. SECOND_OPINION only with doctors that actually offer second opinions
  *  6. triage floor: the model may escalate but never de-escalate (auto-upgraded, logged)
@@ -124,8 +126,10 @@ export class GroundingValidator {
           errors.push(`citation "${chunkId}" is about doctor ${chunk.sourceId}; include that doctor in providers or drop the citation`);
         }
       }
+      // Hospital profiles are descriptive (services, departments) and their sourceId is validated at
+      // ingestion, so they may be cited on their own; structured hospital facts still come from SQL.
       if (chunk.sourceType === 'hospital_profile' && chunk.sourceId && !knownHospitals.has(chunk.sourceId)) {
-        errors.push(`citation "${chunkId}" is about hospital ${chunk.sourceId}, whose DB record was not fetched this turn`);
+        warnings.push(`citation "${chunkId}" (hospital ${chunk.sourceId}) used without a hospital record this turn`);
       }
     }
 
@@ -176,6 +180,7 @@ function checkText(text: string, ev: TurnEvidence, ctx: ValidationContext, scope
   }
   const arNames = allDoctors.map((d) => normalizeText(d.nameAr));
   for (const m of text.matchAll(AR_DOCTOR_NAME)) {
+    if (AR_NOT_A_NAME.has(m[1])) continue;
     const token = normalizeText(m[1]);
     if (!arNames.some((n) => n.split(/\s+/).includes(token))) errors.push(`mentions "د. ${m[1]}", who was not returned by any tool this turn`);
   }

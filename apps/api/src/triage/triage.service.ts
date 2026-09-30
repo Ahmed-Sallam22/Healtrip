@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import type { ExtractedFacts, NextStep } from '@healtrip/shared';
+import { isNegated } from '../common/negation';
 import { normalizeText } from '../common/text';
 import {
   CHEST_PAIN,
@@ -32,11 +33,6 @@ interface CompiledConcept {
   phrases: { text: string; ascii: boolean }[];
   patterns: RegExp[];
 }
-
-// Negation cues that apply to the *next* symptom mention inside the same clause.
-const NEGATION_EN = /\b(?:no|not|without|never|denies|deny|don't have|do not have|doesn't|does not|isn't|no signs? of)\b/;
-const NEGATION_AR = /(?:^|\s)(?:لا|مفيش|ما فيش|بدون|من غير|ليس|مش|ما عنديش|ما عندي|لا يوجد|لم)(?:\s|$)/;
-const CLAUSE_BREAK = /[.,;!?،؛\n]|\bbut\b|\bhowever\b|لكن|بس /g;
 
 /**
  * Runs red-flag rules over the user's recent messages + structured facts.
@@ -130,13 +126,4 @@ function isWordBounded(text: string, idx: number, len: number): boolean {
   const before = idx === 0 ? ' ' : text[idx - 1];
   const after = idx + len >= text.length ? ' ' : text[idx + len];
   return !/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after);
-}
-
-/** Looks back within the current clause (max ~40 chars) for a negation cue. */
-function isNegated(text: string, idx: number): boolean {
-  const before = text.slice(Math.max(0, idx - 40), idx);
-  let clauseStart = 0;
-  for (const m of before.matchAll(CLAUSE_BREAK)) clauseStart = (m.index ?? 0) + m[0].length;
-  const clause = before.slice(clauseStart);
-  return NEGATION_EN.test(clause) || NEGATION_AR.test(clause);
 }

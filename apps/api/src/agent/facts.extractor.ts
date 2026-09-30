@@ -1,4 +1,5 @@
 import { type ExtractedFacts, type FactsPatch, FactsPatchSchema, findCityInText } from '@healtrip/shared';
+import { isNegated } from '../common/negation';
 import { normalizeText } from '../common/text';
 
 /**
@@ -68,7 +69,12 @@ export function extractFacts(rawText: string, symptomKeywords: string[] = []): F
   const lang = LANGUAGE_CUES.find((l) => l.re.test(text));
   if (lang) patch.preferredLanguage = lang.code;
 
-  if (/\bsecond opinion\b|\banother opinion\b|راي (?:طبي )?(?:ثاني|تاني|اخر)|رايا (?:طبيا )?(?:ثانيا|اخر)|الراي الثاني|الراي الطبي الثاني/.test(text)) {
+  // Intent, not mention: "I want a second opinion" counts; "not sure whether … or a second opinion" does not.
+  const SECOND_OPINION = '(?:second|another) (?:medical )?opinion|رايا? (?:طبيا? )?(?:ثانيا?|تاني|اخر)|الراي (?:الطبي )?الثاني';
+  const EN_INTENT = '\\b(?:want|need|would like|looking for|get|getting|request|requesting|seeking|interested in)\\b';
+  const AR_INTENT = '(?:اريد|عايز|عاوز|محتاج|احتاج|اطلب|ابحث عن|ارغب في)';
+  const unsure = /\b(?:not sure|whether|should i)\b|مش عارف|لست متاكد|هل اروح/.test(text);
+  if (new RegExp(`(?:${EN_INTENT}|${AR_INTENT})[^.?!]{0,25}(?:${SECOND_OPINION})`).test(text) && !(unsure && !/\balready\b|بالفعل/.test(text))) {
     patch.wantsSecondOpinion = true;
   }
   if (/\b(?:telemedicine|online consultation|video (?:call|consultation)|remote consultation)\b|عن بعد|اونلاين|اون لاين/.test(text)) {
@@ -89,15 +95,21 @@ export function extractFacts(rawText: string, symptomKeywords: string[] = []): F
   const symptoms = symptomKeywords
     .map((k) => ({ raw: k, norm: normalizeText(k) }))
     .filter(({ norm }) => norm.length >= 3 && containsTerm(text, norm))
+    // drop keywords contained in a longer matched keyword ("ركبه" inside "الركبه", "heart" inside "heart failure")
+    .filter(({ norm }, _i, all) => !all.some((o) => o.norm !== norm && o.norm.includes(norm)))
     .map(({ raw }) => raw);
   if (symptoms.length) patch.symptoms = dedupe(symptoms).slice(0, 10);
 
   return patch;
 }
 
+/** True if the term is mentioned at least once without being negated ("no shortness of breath"). */
 function containsTerm(text: string, term: string): boolean {
-  if (/^[\x20-\x7e]+$/.test(term)) return new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(text);
-  return text.includes(term);
+  const re = /^[\x20-\x7e]+$/.test(term)
+    ? new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'g')
+    : new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+  for (const m of text.matchAll(re)) if (!isNegated(text, m.index ?? 0)) return true;
+  return false;
 }
 
 function parseDurationDays(text: string): number | undefined {

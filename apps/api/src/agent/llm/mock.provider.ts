@@ -122,7 +122,10 @@ function defaultPolicy(t: TurnView): LlmResponse {
   const tr = T[t.locale];
   const last = t.exchanges[t.exchanges.length - 1];
   const onlyTerminal = !t.availableTools.includes(TOOL_NAMES.searchProviders);
-  const explicit = EXPLICIT_SPECIALTIES.find(([re]) => re.test(text))?.[1];
+  // A specialist named while the patient is unsure ("should I see a cardiologist or go to the ER?")
+  // is an option being weighed, not a request.
+  const unsure = /\b(?:not sure|whether|should i)\b|مش عارف|لست متاكد|هل اروح/.test(text);
+  const explicit = unsure ? undefined : EXPLICIT_SPECIALTIES.find(([re]) => re.test(text))?.[1];
 
   // Repair path: the server rejected our terminal call → resubmit from evidence only.
   if (last && last.call.name === TOOL_NAMES.submitRecommendation) return submitFromEvidence(t, explicit);
@@ -220,7 +223,8 @@ function providerFilters(t: TurnView, specialtyCode: string) {
 function answerFromKnowledge(t: TurnView, kb: ToolResult<unknown>, chunks: KnowledgeChunk[]): LlmResponse {
   const tr = T[t.locale];
   const f = t.facts;
-  const nextStep: NextStep = f.wantsSecondOpinion ? 'SECOND_OPINION' : 'GENERAL_PRACTITIONER';
+  const aboutSecondOpinion = f.wantsSecondOpinion || /second opinion|الراي (?:الطبي )?الثاني/.test(normalizeText(t.userText));
+  const nextStep: NextStep = aboutSecondOpinion ? 'SECOND_OPINION' : 'GENERAL_PRACTITIONER';
   if (!kb.ok || !chunks.length) {
     return call(TOOL_NAMES.submitRecommendation, {
       nextStep, urgency: 'low', providers: [], citations: [], disclaimerShown: true,
@@ -228,16 +232,18 @@ function answerFromKnowledge(t: TurnView, kb: ToolResult<unknown>, chunks: Knowl
       reasoning: kb.ok ? tr.noInfoReason : tr.kbDownReason,
     });
   }
-  // Guides are general articles; for profile/bio chunks, a name match alone does not answer the
-  // question ("does X have parking?"), so require the question's other key terms to appear.
-  const relevant = chunks.filter((c) => c.sourceType === 'patient_guide' || coversFocusTerms(t.userText, c));
+  // Bios need the doctor's DB record, so a pure knowledge answer uses guides/profiles only. For
+  // profiles, a name match alone does not answer the question ("does X have parking?"), so the
+  // question's other key terms must appear in the chunk.
+  const relevant = chunks.filter((c) => c.sourceType === 'patient_guide' || (c.sourceType === 'hospital_profile' && coversFocusTerms(t.userText, c)));
   if (!relevant.length) return answerFromKnowledge(t, kb, []);
-  const top = relevant.filter((c) => c.sourceType === 'patient_guide').slice(0, 2);
-  const used = top.length ? top : relevant.slice(0, 1);
+  // Summarise the best-scoring document, reading its chunks in document order.
+  const bestDoc = relevant[0].chunkId.split('#')[0];
+  const used = relevant.filter((c) => c.chunkId.startsWith(`${bestDoc}#`)).sort((a, b) => chunkIndex(a) - chunkIndex(b)).slice(0, 2);
   return call(TOOL_NAMES.submitRecommendation, {
     nextStep,
     urgency: 'low',
-    message: `${tr.accordingTo(used[0].title)} ${summarize(used[0].text)}`,
+    message: `${tr.accordingTo(used[0].title)} ${summarize(used.map((c) => c.text).join('\n'))}`,
     reasoning: tr.kbReason,
     providers: [],
     citations: used.map((c) => c.chunkId),
@@ -265,7 +271,7 @@ function submitFromEvidence(t: TurnView, explicit?: string): LlmResponse {
   }
 
   // If bios were retrieved, only recommend doctors whose bio matched AND whose DB record we have.
-  const bioChunks = chunks.filter((c) => c.sourceType === 'doctor_bio' && c.sourceId && doctors.has(c.sourceId));
+  const bioChunks = discriminative(t.userText, chunks.filter((c) => c.sourceType === 'doctor_bio' && c.sourceId && doctors.has(c.sourceId)));
   const chosen = bioChunks.length ? [...new Set(bioChunks.map((c) => c.sourceId!))].map((id) => doctors.get(id)!) : [...doctors.values()].slice(0, 3);
 
   let nextStep: NextStep = 'BOOK_SPECIALIST';
@@ -277,8 +283,9 @@ function submitFromEvidence(t: TurnView, explicit?: string): LlmResponse {
     urgency = 'high';
   }
 
+  const ragDown = t.exchanges.some((e) => !e.result.ok && (e.result as { error: { code: string } }).error.code === 'RAG_UNAVAILABLE');
   const message = chosen.length
-    ? tr.found(chosen.length, f.city)
+    ? `${tr.found(chosen.length, f.city)}${ragDown ? ` ${tr.kbPartial}` : ''}`
     : t.exchanges.some((e) => !e.result.ok && (e.result as { error: { code: string } }).error.code === 'RAG_UNAVAILABLE')
       ? tr.kbDown
       : tr.none;
@@ -287,7 +294,7 @@ function submitFromEvidence(t: TurnView, explicit?: string): LlmResponse {
     nextStep,
     urgency,
     message,
-    reasoning: tr.reason(nextStep, f),
+    reasoning: bioChunks.length ? tr.bioReason : tr.reason(nextStep, f),
     providers: chosen.map((d) => ({ providerId: d.id, matchReason: tr.match(d, bioChunks.some((c) => c.sourceId === d.id)) })),
     citations: bioChunks.filter((c) => chosen.some((d) => d.id === c.sourceId)).map((c) => c.chunkId),
     disclaimerShown: true,
@@ -298,10 +305,12 @@ function summarize(text: string): string {
   const sentences = text
     .replace(/^.*(?:sample content|محتوى تجريبي|fictional|خيالي).*$/gim, '')
     .replace(/^#+\s.*$/gm, '')
+    .replace(/^\s*(?:[-*]|\d+\.)\s+/gm, '')
+    .replace(/\*\*/g, '')
     .split(/(?<=[.!?؟])\s+/)
     .map((s) => s.trim())
     .filter((s) => s.length > 20);
-  return sentences.slice(0, 3).join(' ');
+  return [...new Set(sentences)].slice(0, 4).join(' '); // chunks overlap: drop repeated sentences
 }
 
 const FOCUS_STOPWORDS = new Set(['does', 'have', 'offer', 'offers', 'what', 'which', 'where', 'there', 'with', 'about', 'tell', 'know', 'hospital', 'clinic', 'doctor', 'their', 'this', 'that', 'your', 'from', 'please', 'يوجد', 'لديه', 'لديها', 'مستشفي', 'عياده', 'طبيب', 'دكتور', 'هناك', 'فيها', 'عندهم']);
@@ -311,6 +320,24 @@ function tokens(text: string): string[] {
     .split(/[^\p{L}\p{N}]+/u)
     .map((w) => w.replace(/^(?:وال|بال|ال)/, ''))
     .filter((w) => w.length >= 4 && !FOCUS_STOPWORDS.has(w));
+}
+
+const chunkIndex = (c: KnowledgeChunk) => Number(c.chunkId.split('#')[1] ?? 0);
+
+/**
+ * Stand-in for an LLM judging relevance: keep chunks that contain every *discriminative* query
+ * term (a term found in some but not all candidate chunks), e.g. "stents" separates an
+ * interventional cardiologist's bio from a heart-failure specialist's bio.
+ */
+function discriminative(question: string, candidates: KnowledgeChunk[]): KnowledgeChunk[] {
+  if (candidates.length < 2) return candidates;
+  const stem = (w: string) => w.slice(0, Math.max(4, w.length - 2));
+  const bodies = candidates.map((c) => normalizeText(c.text));
+  const terms = [...new Set(tokens(question).map(stem))].filter((st) => {
+    const n = bodies.filter((b) => b.includes(st)).length;
+    return n > 0 && n < bodies.length;
+  });
+  return candidates.filter((_c, i) => terms.every((st) => bodies[i].includes(st)));
 }
 
 function coversFocusTerms(question: string, chunk: KnowledgeChunk): boolean {
@@ -360,6 +387,8 @@ const T = {
     kbDown: "Our knowledge base is temporarily unavailable, so I can't answer that part right now. I can still search doctors and hospitals for you.",
     kbDownReason: 'Knowledge base unavailable; answered with database tools only.',
     kbReason: "Answer based on HealTrip's patient guide (see source).",
+    kbPartial: "I couldn't check doctor profiles right now (knowledge base unavailable), so these are matched on specialty and rating only.",
+    bioReason: 'These doctors are in our database and their profiles mention what you asked about (see sources). Fees, city and availability come from our database.',
     accordingTo: (title: string) => `According to HealTrip's guide "${title}":`,
     found: (n: number, city?: string) => `I found ${n} matching option${n > 1 ? 's' : ''} in our network${city ? ` in ${city}` : ''}. The details below come directly from our database.`,
     none: "I couldn't find a matching doctor in our network with those filters. Try widening them (for example a different city or a higher budget) — I won't suggest providers that aren't in our database.",
@@ -387,8 +416,10 @@ const T = {
     kbDown: 'قاعدة المعرفة غير متاحة مؤقتًا، لذا لا أستطيع الإجابة عن هذا الجزء الآن. لا يزال بإمكاني البحث عن الأطباء والمستشفيات.',
     kbDownReason: 'قاعدة المعرفة غير متاحة؛ تمت الإجابة باستخدام قاعدة البيانات فقط.',
     kbReason: 'الإجابة مبنية على دليل المرضى من هيلتريب (انظر المصدر).',
+    kbPartial: 'تعذّر الاطلاع على ملفات الأطباء الآن (قاعدة المعرفة غير متاحة)، لذا تمت المطابقة حسب التخصص والتقييم فقط.',
+    bioReason: 'هؤلاء الأطباء موجودون في قاعدة بياناتنا وتذكر ملفاتهم ما سألت عنه (انظر المصادر). الأسعار والمدينة والمواعيد مأخوذة من قاعدة بياناتنا.',
     accordingTo: (title: string) => `وفقًا لدليل هيلتريب «${title}»:`,
-    found: (n: number, city?: string) => `وجدت ${n} ${n > 2 ? 'خيارات مناسبة' : 'خيار مناسب'} في شبكتنا${city ? ` في ${CITY_AR[city] ?? city}` : ''}. التفاصيل أدناه مأخوذة مباشرة من قاعدة بياناتنا.`,
+    found: (n: number, city?: string) => `وجدت ${n === 1 ? 'خيارًا واحدًا مناسبًا' : n === 2 ? 'خيارين مناسبين' : `${n} خيارات مناسبة`} في شبكتنا${city ? ` في ${CITY_AR[city] ?? city}` : ''}. التفاصيل أدناه مأخوذة مباشرة من قاعدة بياناتنا.`,
     none: 'لم أجد طبيبًا مطابقًا في شبكتنا بهذه الشروط. جرّب توسيع البحث (مدينة أخرى أو ميزانية أعلى) — لن أقترح مقدمي خدمة غير موجودين في قاعدة بياناتنا.',
     reason: (s: NextStep, f: ExtractedFacts) => {
       const parts = [f.symptoms.length ? `الأعراض: ${f.symptoms.join('، ')}` : '', f.durationDays !== undefined ? `منذ نحو ${f.durationDays} يوم` : '', f.severity ? `الشدة ${f.severity}/10` : '', f.wantsSecondOpinion ? 'طلبت رأيًا ثانيًا' : ''].filter(Boolean);
