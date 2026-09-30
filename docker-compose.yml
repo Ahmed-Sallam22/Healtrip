@@ -40,13 +40,15 @@ services:
     build: { context: ., dockerfile: apps/rag/Dockerfile }
     environment:
       RAG_DATABASE_URL: postgresql://healtrip_rag:${RAG_DB_PASSWORD:-rag-dev}@postgres:5432/healtrip
-      RAG_INTERNAL_TOKEN: ${RAG_INTERNAL_TOKEN:-dev-internal-token}
+      RAG_INTERNAL_TOKEN: ${RAG_INTERNAL_TOKEN:-compose-local-token}
       EMBEDDINGS_PROVIDER: ${EMBEDDINGS_PROVIDER:-mock}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       RAG_AUTO_INGEST: "true"
     depends_on:
       migrate: { condition: service_completed_successfully }
 
+  # The runtime image sets NODE_ENV=production, so the API refuses the code default "dev-internal-token";
+  # compose uses its own local default (shared with rag). Override RAG_INTERNAL_TOKEN for anything non-local.
   api:
     build: { context: ., dockerfile: apps/api/Dockerfile, target: runtime }
     environment:
@@ -57,7 +59,7 @@ services:
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       RAG_URL: http://rag:8001
-      RAG_INTERNAL_TOKEN: ${RAG_INTERNAL_TOKEN:-dev-internal-token}
+      RAG_INTERNAL_TOKEN: ${RAG_INTERNAL_TOKEN:-compose-local-token}
       EXPOSE_TRACE: "true"
       LOG_LEVEL: info
     ports: ["4000:4000"]
