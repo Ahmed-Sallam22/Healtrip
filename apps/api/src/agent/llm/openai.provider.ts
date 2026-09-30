@@ -42,6 +42,9 @@ export class OpenAIProvider implements LlmProvider {
         text: choice?.message.content ?? null,
         toolCalls,
         stopReason: choice?.finish_reason ?? 'unknown',
+        // Replayed verbatim within the turn: some compatible APIs (Gemini 3) attach thought signatures
+        // to tool calls and reject follow-up requests that drop them.
+        raw: choice?.message,
         usage: { inputTokens: res.usage?.prompt_tokens, outputTokens: res.usage?.completion_tokens },
       };
     } catch (err) {
@@ -76,6 +79,7 @@ function toOpenAiMessages(messages: LlmMessage[]): OpenAI.Chat.ChatCompletionMes
   return messages.flatMap((m): OpenAI.Chat.ChatCompletionMessageParam[] => {
     if (m.role === 'user') return [{ role: 'user', content: m.content }];
     if (m.role === 'tool') return m.results.map((r) => ({ role: 'tool' as const, tool_call_id: r.toolCallId, content: r.content }));
+    if (m.raw) return [m.raw as OpenAI.Chat.ChatCompletionAssistantMessageParam];
     return [
       {
         role: 'assistant',
